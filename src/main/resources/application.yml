@@ -1,13 +1,13 @@
 spring:
   profiles:
-    active: local
+    active: blue
     group:
       local: local, common, secret
-      blue_server: blue, common, secret
-      green_server: green, common, secret
+      blue: blue, common, secret
+      green: green, common, secret
 
 server:
-  env: local
+  env: blue
 
 ---
 
@@ -26,7 +26,7 @@ server:
 spring:
   config:
     activate:
-      on-profile: blue_server
+      on-profile: blue
 
 server:
   port: 8080
@@ -38,7 +38,7 @@ server:
 spring:
   config:
     activate:
-      on-profile: green_server
+      on-profile: green
 
 server:
   port: 9090

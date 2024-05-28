@@ -1,4 +1,4 @@
-package com.project.tableMaid.dto.Sales.request;
+package com.project.tableMaid.dto.sales.request;
 
 import lombok.Data;
 

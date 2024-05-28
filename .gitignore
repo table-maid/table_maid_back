@@ -3,7 +3,6 @@ HELP.md
 src/main/resources/application-secret.yml
 
 target/
-!.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.tableMaid.repository.MenuMapper">
+    <resultMap id="MenuResultMap" type="com.project.tableMaid.entity.menu.Menu">
+        <id property="menuId" column="menu_id" />
+        <result property="adminId" column="admin_id" />
+        <result property="menuCategoryId" column="menu_category_id" />
+        <result property="menuCode" column="menu_code" />
+        <result property="menuName" column="menu_name" />
+        <result property="menuPrice" column="menu_price" />
+        <result property="recommendMenu" column="recommend_menu" />
+        <result property="menuState" column="menu_state" />
+        <result property="menuImgUrl" column="menu_img_url" />
+        <result property="createDate" column="create_date" />
+        <result property="updateDate" column="update_date" />
+    </resultMap>
+
+    <insert id="saveMenu" parameterType="com.project.tableMaid.entity.menu.Menu" >
+        insert into
+            menu_tb
+        values
+            (0, #{adminId}, #{menuCategoryId}, #{menuCode}, #{menuName}, #{menuPrice}, #{recommendMenu}, #{menuState}, #{menuImgUrl}, now(), now())
+    </insert>
+</mapper>

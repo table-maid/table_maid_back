@@ -19,4 +19,7 @@ public class OptionRegister {
     private int optionNameId;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+
+    private OptionTitle optionTitle;
+    private OptionName optionName;
 }

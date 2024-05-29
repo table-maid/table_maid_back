@@ -5,12 +5,10 @@ import lombok.Data;
 
 @Data
 public class AddMenuCategoryReqDto {
-    private int adminId;
     private String menuCategoryName;
 
     public MenuCategory toEntity() {
         return MenuCategory.builder()
-                .adminId(adminId)
                 .menuCategoryName(menuCategoryName)
                 .build();
     }

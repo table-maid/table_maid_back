@@ -3,4 +3,30 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.novelidea.gumeonggage.repository.AdminMapper">
+<mapper namespace="com.project.tableMaid.repository.AdminMapper">
+    <resultMap id="AdminResultMap" type="com.project.tableMaid.entity.account.Admin">
+        <id property="adminId" column="admin_id" />
+        <result property="adminName" column="admin_name" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="email" column="email" />
+        <result property="companyNumber" column="company_number" />
+        <result property="companyName" column="company_name" />
+        <result property="ownerName" column="owner_name" />
+        <result property="companyAddress" column="company_address" />
+        <result property="createDate" column="create_date" />
+        <result property="updateDate" column="update_date" />
+    </resultMap>
+
+    <insert id="saveAdmin"
+            parameterType="com.project.tableMaid.entity.account.Admin"
+            keyProperty="adminId"
+            useGeneratedKeys="true"
+    >
+        insert into
+            admin_tb
+        values
+            (0, #{adminName}, #{username}, #{password}, #{email}, #{companyNumber}, #{companyName}, #{ownerName}, #{companyAddress}, now(), now())
+    </insert>
+
+</mapper>

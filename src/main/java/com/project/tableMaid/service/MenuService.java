@@ -1,5 +1,6 @@
 package com.project.tableMaid.service;
 
+import com.project.tableMaid.dto.menu.request.AddMenuCategoryReqDto;
 import com.project.tableMaid.dto.menu.request.RegisterMenuReqDto;
 import com.project.tableMaid.repository.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,5 +14,9 @@ public class MenuService {
 
     public void insertMenu(RegisterMenuReqDto registerMenuReqDto) {
         menuMapper.saveMenu(registerMenuReqDto.toEntity());
+    }
+
+    public void insertMenuCategory(AddMenuCategoryReqDto addMenuCategoryReqDto) {
+        menuMapper.saveMenuCategory(addMenuCategoryReqDto.toEntity());
     }
 }

@@ -18,10 +18,25 @@
         <result property="updateDate" column="update_date" />
     </resultMap>
 
+    <resultMap id="MenuCategoryResultMap" type="com.project.tableMaid.entity.menu.MenuCategory">
+        <id property="menuCategoryId" column="menu_category_id" />
+        <result property="adminId" column="admin_id" />
+        <result property="menuCategoryName" column="menu_category_name" />
+        <result property="createDate" column="create_date" />
+        <result property="updateDate" column="update_date" />
+    </resultMap>
+
     <insert id="saveMenu" parameterType="com.project.tableMaid.entity.menu.Menu" >
         insert into
             menu_tb
         values
             (0, #{adminId}, #{menuCategoryId}, #{menuCode}, #{menuName}, #{menuPrice}, #{recommendMenu}, #{menuState}, #{menuImgUrl}, now(), now())
+    </insert>
+
+    <insert id="saveMenuCategory" parameterType="com.project.tableMaid.entity.menu.MenuCategory" >
+        insert into
+            menu_category_tb
+        values
+            (0, #{adminId}, #{menuCategoryName}, now(), now())
     </insert>
 </mapper>

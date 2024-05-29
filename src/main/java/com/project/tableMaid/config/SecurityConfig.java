@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
         http.csrf().disable();
         http.authorizeHttpRequests()
-                .antMatchers("/server/hc", "/server/env", "/admin/auth/*")
+                .antMatchers("/server/hc", "/server/env", "/admin/auth/*", "/menu/**")
                 .permitAll()
                 .antMatchers("/*")
                 .permitAll()

@@ -18,7 +18,7 @@ public class Admin {
     private String username;
     private String password;
     private String email;
-    private int companyNumber;
+    private String companyNumber;
     private String companyName;
     private String ownerName;
     private String companyAddress;

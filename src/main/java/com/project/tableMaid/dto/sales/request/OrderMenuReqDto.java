@@ -13,8 +13,6 @@ public class OrderMenuReqDto {
     private int menuCount;
     private int menuTotalPrice;
 
-
-
     public Order toOrder() {
         return Order.builder()
                 .adminId(adminId)

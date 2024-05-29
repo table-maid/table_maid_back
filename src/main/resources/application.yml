@@ -1,1 +1,55 @@
-spring.application.name=tableMaid
+spring:
+  profiles:
+    active: blue
+    group:
+      local: local, common, secret
+      blue: blue, common, secret
+      green: green, common, secret
+
+server:
+  env: blue
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
+server:
+  port: 8080
+  deploy-address: localhost
+  name: local
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: blue
+
+server:
+  port: 8080
+  deploy-address: 43.202.230.185
+  name: blue_server
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: green
+
+server:
+  port: 9090
+  deploy-address: 43.202.230.185
+  name: green_server
+
+---
+
+client:
+  deploy-address: "localhost:3000"
+
+mybatis:
+  mapper-locations:
+    - /mappers/*.xml

@@ -11,11 +11,11 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MenuOption {
-    private int menuOptionId;
+public class OptionTitle {
+    private int optionTitleId;
     private int adminId;
     private int menuId;
-    private String optionName;
+    private String titleName;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 }

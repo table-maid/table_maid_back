@@ -18,10 +18,77 @@
         <result property="updateDate" column="update_date" />
     </resultMap>
 
+    <resultMap id="MenuCategoryResultMap" type="com.project.tableMaid.entity.menu.MenuCategory">
+        <id property="menuCategoryId" column="menu_category_id" />
+        <result property="adminId" column="admin_id" />
+        <result property="menuCategoryName" column="menu_category_name" />
+        <result property="createDate" column="create_date" />
+        <result property="updateDate" column="update_date" />
+    </resultMap>
+
+    <resultMap id="OptionTitleResultMap" type="com.project.tableMaid.entity.menu.OptionTitle">
+        <id property="optionTitleId" column="option_title_id" />
+        <result property="adminId" column="admin_id" />
+        <result property="menuId" column="menu_id" />
+        <result property="titleName" column="title_name" />
+        <result property="createDate" column="create_date" />
+        <result property="updateDate" column="update_date" />
+    </resultMap>
+
+    <resultMap id="OptionNameResultMap" type="com.project.tableMaid.entity.menu.OptionName">
+        <id property="optionNameId" column="option_name_id" />
+        <result property="adminId" column="admin_id" />
+        <result property="menuId" column="menu_id" />
+        <result property="optionName" column="option_name" />
+        <result property="createDate" column="create_date" />
+        <result property="updateDate" column="update_date" />
+    </resultMap>
+
+    <resultMap id="OptionRegisterResultMap" type="com.project.tableMaid.entity.menu.OptionRegister">
+        <id property="optionRegisterId" column="option_register_id" />
+        <result property="adminId" column="admin_id" />
+        <result property="menuId" column="menu_id" />
+        <result property="optionTitleId" column="option_title_id" />
+        <result property="optionNameId" column="option_name_id" />
+        <result property="createDate" column="create_date" />
+        <result property="updateDate" column="update_date" />
+        <association property="optionTitle" resultMap="OptionTitleResultMap" />
+        <association property="optionName" resultMap="OptionNameResultMap" />
+    </resultMap>
+
     <insert id="saveMenu" parameterType="com.project.tableMaid.entity.menu.Menu" >
         insert into
             menu_tb
         values
             (0, #{adminId}, #{menuCategoryId}, #{menuCode}, #{menuName}, #{menuPrice}, #{recommendMenu}, #{menuState}, #{menuImgUrl}, now(), now())
     </insert>
+
+    <insert id="saveMenuCategory" parameterType="com.project.tableMaid.entity.menu.MenuCategory" >
+        insert into
+            menu_category_tb
+        values
+            (0, #{adminId}, #{menuCategoryName}, now(), now())
+    </insert>
+
+    <insert id="saveOptionTitle" parameterType="com.project.tableMaid.entity.menu.OptionTitle">
+        insert into
+            option_title_tb
+        values
+            (0, #{adminId}, #{menuId}, #{titleName}, now(), now())
+    </insert>
+
+    <insert id="saveOptionName" parameterType="com.project.tableMaid.entity.menu.OptionName">
+        insert into
+            option_name_tb
+        values
+            (0, #{adminId}, #{menuId}, #{optionName}, now(), now())
+    </insert>
+
+    <insert id="saveOptionRegister">
+        insert into
+            option_register_tb
+        values
+            (0, #{adminId}, #{menuId}, #{optionTitleId}, #{optionNameId}, now(), now())
+    </insert>
+
 </mapper>

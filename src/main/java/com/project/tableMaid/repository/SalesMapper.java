@@ -8,4 +8,5 @@ import java.util.List;
 @Mapper
 public interface SalesMapper {
     public int saveSales(List<Sales> sales);
+
 }

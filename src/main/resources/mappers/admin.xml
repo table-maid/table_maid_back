@@ -52,6 +52,16 @@
             username = #{username}
     </select>
 
+    <update id="modifyPassword" parameterType="com.project.tableMaid.entity.account.Admin">
+        update
+            admin_tb
+        set
+            password = #{password},
+            update_date = now()
+        where
+            admin_id = #{adminId}
+    </update>
+
 
 </mapper>
 

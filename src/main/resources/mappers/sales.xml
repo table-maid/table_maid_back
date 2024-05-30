@@ -5,7 +5,30 @@
 
 <mapper namespace="com.project.tableMaid.repository.SalesMapper">
 
+    <resultMap id="salesResultMap" type="com.project.tableMaid.entity.sales.Sales">
+        <id property="salesId" column="sales_id"/>
+        <result property="adminId" column="admin_id"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="year" column="year"/>
+        <result property="month" column="month"/>
+        <result property="day" column="day"/>
+        <result property="count" column="count"/>
+        <result property="menuTotalPrice" column="menu_total_price"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
 
+    <resultMap id="orderResultMap" type="com.project.tableMaid.entity.sales.Order">
+        <id property="orderId" column="order_id"/>
+        <result property="adminId" column="admin_id"/>
+        <result property="orderNumber" column="order_number"/>
+        <result property="tableNumber" column="table_number"/>
+        <result property="peopleCount" column="people_count"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="menuTotalPrice" column="menu_total_price"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
 
     <insert id="saveSales">
         insert into sales_tb
@@ -15,5 +38,58 @@
         </foreach>
     </insert>
 
+    <insert id="saveOrders">
+        insert into order_tb
+        values
+        <foreach collection="orders" item="order" separator=",">
+            (0, #{order.adminId}, #{order.orderNumber}, #{order.tableNumber}, #{order.peopleCount}, #{order.menuName}, #{order.menuCount}, #{order.menuTotalPrice}, now(), now())
+        </foreach>
+    </insert>
 
+    <select
+        id="findSales"
+        resultMap="salesResultMap"
+    >
+        select
+            sales_id,
+            admin_id,
+            menu_name,
+            year,
+            month,
+            day,
+            count,
+            menu_total_price,
+            create_date,
+            update_date
+        from
+            sales_tb;
+    </select>
+
+    <select
+        id="findOrders"
+        resultMap="orderResultMap"
+    >
+        select
+            order_id,
+            admin_id,
+            order_number,
+            table_number,
+            people_count,
+            menu_name,
+            menu_count,
+            menu_total_price,
+            create_date,
+            update_date
+        from
+            order_tb
+    </select>
+
+    <delete id="deleteOrder">
+        delete
+        from
+            order_tb
+        where
+            order_number = #{orderNumber} and admin_id = #{adminId}
+    </delete>
+    
 </mapper>

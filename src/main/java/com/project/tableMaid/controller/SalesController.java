@@ -1,13 +1,12 @@
 package com.project.tableMaid.controller;
 
+import com.project.tableMaid.dto.sales.request.OrderMenuReqDto;
 import com.project.tableMaid.dto.sales.request.SalesMenuReqDto;
+import com.project.tableMaid.entity.sales.Order;
 import com.project.tableMaid.service.SalesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,8 +23,22 @@ public class SalesController {
         return ResponseEntity.created(null).body(true);
     }
 
-//    @PostMapping("/order")
-//    public ResponseEntity<?> addOrder(@RequestBody List<Order> )
+    @PostMapping("/order")
+    public ResponseEntity<?> addOrder(@RequestBody List<OrderMenuReqDto> orderReqDto) {
+        salesService.insertOrders(orderReqDto);
+        return ResponseEntity.created(null).body(true);
+    }
+
+    @GetMapping("/order")
+    public ResponseEntity<?> getOrder() {
+        return ResponseEntity.ok(salesService.searchOrders());
+    }
+
+    @DeleteMapping("/order")
+    public ResponseEntity<?> deleteOrder(@RequestParam int orderNumber) {
+        salesService.deleteOrders(orderNumber, 2);
+        return ResponseEntity.created(null).body(true);
+    }
 
 
 }

@@ -23,7 +23,7 @@ public class ValidAop {
     @Autowired
     private AdminMapper adminMapper;
 
-    @Pointcut("@annotation(com.novelidea.gumeonggage.aop.annotation.ValidAspect)")
+    @Pointcut("@annotation(com.project.tableMaid.aop.annotation.ValidAspect)")
     private void pointCut() {}
 
     @Around("pointCut()")
@@ -33,38 +33,49 @@ public class ValidAop {
 
         BeanPropertyBindingResult bindingResult = null;
 
-        for(Object arg : args) {
-            if(arg.getClass() == BeanPropertyBindingResult.class) {
-                bindingResult =(BeanPropertyBindingResult) arg;
+        for (Object arg : args) {
+            if (arg instanceof BeanPropertyBindingResult) {
+                bindingResult = (BeanPropertyBindingResult) arg;
+                break;
             }
         }
 
-        if(methodName.equals("adminSignup")) {
+        if (bindingResult == null) {
+            return proceedingJoinPoint.proceed();
+        }
+
+        if (methodName.equals("adminSignup")) {
             AdminSignupReqDto adminSignupReqDto = null;
 
-            for(Object arg : args) {
-                if(arg.getClass() == AdminSignupReqDto.class) {
-                    adminSignupReqDto =(AdminSignupReqDto) arg;
+            for (Object arg : args) {
+                if (arg instanceof AdminSignupReqDto) {
+                    adminSignupReqDto = (AdminSignupReqDto) arg;
+                    break;
                 }
             }
-            if(adminMapper.findAdminByUsername(adminSignupReqDto.getUsername()) != null) {
-                ObjectError objectError = new FieldError("username", "username", "이미 존재하는 사용자이름입니다");
+
+            if (adminSignupReqDto == null) {
+                return proceedingJoinPoint.proceed();
+            }
+
+            if (adminMapper.findAdminByUsername(adminSignupReqDto.getUsername()) != null) {
+                ObjectError objectError = new FieldError("username", "username", "이미 존재하는 아이디입니다");
                 bindingResult.addError(objectError);
             }
         }
 
-        if(bindingResult.hasErrors()) { //유효성 검사
+        if (bindingResult.hasErrors()) {
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
             Map<String, String> errorMap = new HashMap<>();
             for (FieldError fieldError : fieldErrors) {
-                String fieldName = fieldError.getField(); // dto변수명
-                String message = fieldError.getDefaultMessage(); // 메세지내용
-                errorMap.put(fieldName,message);
+                String fieldName = fieldError.getField(); // dto 변수명
+                String message = fieldError.getDefaultMessage(); // 메시지 내용
+                errorMap.put(fieldName, message);
             }
 
             throw new ValidException(errorMap);
         }
+
         return proceedingJoinPoint.proceed();
     }
-
 }

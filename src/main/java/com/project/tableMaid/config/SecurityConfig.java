@@ -38,8 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeHttpRequests()
                 .antMatchers("/server/hc", "/server/env", "/admin/**", "/menu/**", "/sales/**")
                 .permitAll()
-                .antMatchers("/*")
-                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

@@ -29,5 +29,29 @@
             (0, #{adminName}, #{username}, #{password}, #{email}, #{companyNumber}, #{companyName}, #{ownerName}, #{companyAddress}, now(), now())
     </insert>
 
+    <select
+            id="findAdminByUsername"
+            parameterType="string"
+            resultMap="AdminResultMap"
+    >
+        select
+            admin_id,
+            admin_name,
+            username,
+            password,
+            email,
+            company_number,
+            company_name,
+            owner_name,
+            company_address,
+            create_date,
+            update_date
+        from
+            admin_tb
+        where
+            username = #{username}
+    </select>
+
+
 </mapper>
 

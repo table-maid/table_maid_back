@@ -28,4 +28,11 @@ public class AdminAuthController {
         System.out.println("컨트롤러 진입 끝");
         return ResponseEntity.created(null).body(true);
     }
+
+    @PostMapping("/signin")
+    public ResponseEntity<?> adminSignin(@RequestBody AdminSignupReqDto adminSignupReqDto) {
+        return ResponseEntity.ok(adminAuthService.adminSignin(adminSignupReqDto));
+    }
+
+
 }

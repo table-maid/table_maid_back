@@ -1,5 +1,6 @@
 package com.project.tableMaid.entity.account;
 
+import com.project.tableMaid.security.PrincipalUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,4 +25,17 @@ public class Admin {
     private String companyAddress;
     private LocalDate createDate;
     private LocalDate updateDate;
+
+    public PrincipalUser toPrincipalUser() {
+        return PrincipalUser.builder()
+                .adminId(adminId)
+                .adminName(adminName)
+                .username(adminName)
+                .email(email)
+                .companyNumber(companyNumber)
+                .companyName(companyName)
+                .ownerName(ownerName)
+                .companyAddress(companyAddress)
+                .build();
+    }
 }

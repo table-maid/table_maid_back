@@ -34,4 +34,12 @@ public class MenuService {
     public void deleteMenuCategory(DeleteMenuCategoryReqDto deleteMenuCategoryReqDto) {
         menuMapper.deleteMenuCategory(deleteMenuCategoryReqDto.toEntity());
     }
+
+    public void editMenu(UpdateMenuReqDto updateMenuReqDto) {
+        menuMapper.updateMenu(updateMenuReqDto.toEntity());
+    }
+
+    public void deleteMenu(DeleteMenuReqDto deleteMenuReqDto) {
+        menuMapper.updateMenu(deleteMenuReqDto.toEntity());
+    }
 }

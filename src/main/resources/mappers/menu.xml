@@ -110,4 +110,27 @@
             and menu_category_id = #{menuCategoryId}
     </delete>
 
+    <update id="updateMenu">
+        update
+            menu_tb
+        set
+            menu_name = #{menuName},
+            menu_price = #{menuPrice},
+            recommend_menu = #{recommendMenu},
+            menu_state = #{menuState},
+            menu_img_url = #{menuImgUrl}
+            menu_category_id = #{menuCategoryId}
+        where
+            menu_id = #{menuId}
+            and admin_id = #{adminId}
+    </update>
+
+    <delete id="deleteMenu">
+        delete from
+            menu_tb
+        where
+            admin_id = #{adminId}
+            and menu_id = #{menuId}
+    </delete>
+
 </mapper>

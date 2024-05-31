@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class SalesMenuReqDto {
     private int adminId;
+    private int orderNumber;
     private String menuName;
     private int year;
     private int month;
@@ -16,6 +17,7 @@ public class SalesMenuReqDto {
     public Sales toEntity() {
         return Sales.builder()
                 .adminId(adminId)
+                .orderNumber(orderNumber)
                 .menuName(menuName)
                 .year(year)
                 .month(month)

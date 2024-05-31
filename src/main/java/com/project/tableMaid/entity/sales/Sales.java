@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class Sales {
     private int salesId;
     private int adminId;
+    private int orderNumber;
     private String menuName;
     private int year;
     private int month;

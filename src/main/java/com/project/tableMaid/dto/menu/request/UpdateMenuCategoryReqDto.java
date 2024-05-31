@@ -4,7 +4,7 @@ import com.project.tableMaid.entity.menu.MenuCategory;
 import lombok.Data;
 
 @Data
-public class AddMenuCategoryReqDto {
+public class UpdateMenuCategoryReqDto {
     private int menuCategoryId;
     private int adminId;
     private String menuCategoryName;

@@ -8,6 +8,7 @@
     <resultMap id="salesResultMap" type="com.project.tableMaid.entity.sales.Sales">
         <id property="salesId" column="sales_id"/>
         <result property="adminId" column="admin_id"/>
+        <result property="orderNumber" column="order_number"/>
         <result property="menuName" column="menu_name"/>
         <result property="year" column="year"/>
         <result property="month" column="month"/>
@@ -34,7 +35,7 @@
         insert into sales_tb
         values
         <foreach collection="sales" item="sale" separator=",">
-            (0, #{sale.adminId}, #{sale.menuName}, #{sale.year}, #{sale.month}, #{sale.day}, #{sale.count}, #{sale.menuTotalPrice}, now(), now())
+            (0, #{sale.adminId}, #{sale.orderNumber}, #{sale.menuName},  #{sale.year}, #{sale.month}, #{sale.day}, #{sale.count}, #{sale.menuTotalPrice}, now(), now())
         </foreach>
     </insert>
 
@@ -53,6 +54,7 @@
         select
             sales_id,
             admin_id,
+            order_number,
             menu_name,
             year,
             month,

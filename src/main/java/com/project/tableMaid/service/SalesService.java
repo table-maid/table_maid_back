@@ -5,6 +5,7 @@ import com.project.tableMaid.dto.sales.request.SalesMenuReqDto;
 import com.project.tableMaid.dto.sales.response.OrderMenuRespDto;
 import com.project.tableMaid.entity.sales.Order;
 import com.project.tableMaid.entity.sales.Sales;
+import com.project.tableMaid.exception.DeleteException;
 import com.project.tableMaid.exception.SaveException;
 import com.project.tableMaid.repository.SalesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,13 +67,25 @@ public class SalesService {
     }
 
     // 판매 DELETE
+    @Transactional(rollbackFor = Exception.class)
     public void deleteSales(int orderNumber, int adminId) {
-        salesMapper.deleteSales(orderNumber, adminId);
+        int successCount = 0;
+        successCount += salesMapper.deleteSales(orderNumber, adminId);
+
+        if(successCount < 1) {
+            throw new DeleteException(Map.of("deleteSales 오류", "정상적으로 환불(sales)이 되지 않았습니다."));
+        }
     }
 
     // 오더 DELETE
+    @Transactional(rollbackFor = Exception.class)
     public void deleteOrders(int orderNumber, int adminId) {
-        salesMapper.deleteOrder(orderNumber, adminId);
+        int successCount= 0;
+        successCount += salesMapper.deleteOrder(orderNumber, adminId);
+
+        if(successCount < 1) {
+            throw new DeleteException(Map.of("deleteSales 오류", "정상적으로 환불(order)이 되지 않았습니다."));
+        }
     }
 
 

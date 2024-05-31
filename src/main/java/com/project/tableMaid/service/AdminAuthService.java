@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Map;
+
 @Service
 public class AdminAuthService {
 
@@ -33,7 +35,7 @@ public class AdminAuthService {
         successCount += adminMapper.saveAdmin(admin);
 
         if(successCount < 1) {
-            throw new SaveException();
+            throw new SaveException(Map.of("adminSignup 오류", "정상적으로 회원가입이 되지 않았습니다."));
         }
     }
 

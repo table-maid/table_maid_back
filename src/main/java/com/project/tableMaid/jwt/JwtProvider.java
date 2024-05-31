@@ -66,6 +66,7 @@ public class JwtProvider {
                     .getBody();
         } catch (Exception e) {
             log.error("JWT 인증 오류: {}", e.getMessage());
+            return null;
         }
 
         return claims;

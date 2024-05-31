@@ -1,5 +1,6 @@
 package com.project.tableMaid.controller;
 
+import com.project.tableMaid.aop.annotation.ParamsPrintAspect;
 import com.project.tableMaid.dto.sales.request.OrderMenuReqDto;
 import com.project.tableMaid.dto.sales.request.SalesMenuReqDto;
 import com.project.tableMaid.entity.sales.Order;
@@ -28,7 +29,7 @@ public class SalesController {
         salesService.insertOrders(orderReqDto);
         return ResponseEntity.created(null).body(true);
     }
-
+    @ParamsPrintAspect
     @GetMapping("/order")
     public ResponseEntity<?> getOrder() {
         return ResponseEntity.ok(salesService.searchOrders());

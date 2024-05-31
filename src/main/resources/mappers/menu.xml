@@ -95,11 +95,19 @@
         update
             menu_category_tb
         set
-            admin_id = #{adminId},
             menu_category_name = #{menuCategoryName},
             update_date = now()
         where
             menu_category_id = #{menuCategoryId}
+            and admin_id = #{adminId}
     </update>
+
+    <delete id="deleteMenuCategory">
+        delete from
+            menu_category_tb
+        where
+            admin_id = #{adminId}
+            and menu_category_id = #{menuCategoryId}
+    </delete>
 
 </mapper>

@@ -15,4 +15,5 @@ public interface MenuMapper {
     int saveOptionName(OptionName optionName);
     int saveOptionRegister(@Param("optionTitleId") int optionTitleId, @Param("optionNameId") int optionNameId);
     int updateMenuCategory(MenuCategory menuCategory);
+    int deleteMenuCategory(MenuCategory menuCategory);
 }

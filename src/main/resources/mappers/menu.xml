@@ -90,5 +90,16 @@
         values
             (0, #{adminId}, #{menuId}, #{optionTitleId}, #{optionNameId}, now(), now())
     </insert>
+    
+    <update id="updateMenuCategory">
+        update
+            menu_category_tb
+        set
+            admin_id = #{adminId},
+            menu_category_name = #{menuCategoryName},
+            update_date = now()
+        where
+            menu_category_id = #{menuCategoryId}
+    </update>
 
 </mapper>

@@ -19,21 +19,21 @@ public class MenuController {
         return ResponseEntity.created(null).body(true);
     }
 
+    @PutMapping("/menus")
+    public ResponseEntity<?> updateMenu(@RequestBody UpdateMenuReqDto updateMenuReqDto) {
+        menuService.editMenu(updateMenuReqDto);
+        return ResponseEntity.ok(true);
+    }
+
+    @DeleteMapping("/menus")
+    public ResponseEntity<?> deleteMenu(@RequestBody DeleteMenuReqDto deleteMenuReqDto) {
+        menuService.deleteMenu(deleteMenuReqDto);
+        return ResponseEntity.ok(true);
+    }
+
     @PostMapping("/category")
     public ResponseEntity<?> addMenuCategory(@RequestBody AddMenuCategoryReqDto addMenuCategoryReqDto) {
         menuService.insertMenuCategory(addMenuCategoryReqDto);
-        return ResponseEntity.created(null).body(true);
-    }
-
-    @PostMapping("/title")
-    public ResponseEntity<?> addOptionTitle(@RequestBody AddOptionTitleReqDto addOptionTitleReqDto) {
-        menuService.insertOptionTitle(addOptionTitleReqDto);
-        return ResponseEntity.created(null).body(true);
-    }
-
-    @PostMapping("/name")
-    public ResponseEntity<?> addOptionName(@RequestBody AddOptionNameReqDto addOptionNameReqDto) {
-        menuService.insertOptionName(addOptionNameReqDto);
         return ResponseEntity.created(null).body(true);
     }
 
@@ -48,4 +48,17 @@ public class MenuController {
         menuService.deleteMenuCategory(deleteMenuCategoryReqDto);
         return ResponseEntity.ok(true);
     }
+
+    @PostMapping("/title")
+    public ResponseEntity<?> addOptionTitle(@RequestBody AddOptionTitleReqDto addOptionTitleReqDto) {
+        menuService.insertOptionTitle(addOptionTitleReqDto);
+        return ResponseEntity.created(null).body(true);
+    }
+
+    @PostMapping("/name")
+    public ResponseEntity<?> addOptionName(@RequestBody AddOptionNameReqDto addOptionNameReqDto) {
+        menuService.insertOptionName(addOptionNameReqDto);
+        return ResponseEntity.created(null).body(true);
+    }
+
 }

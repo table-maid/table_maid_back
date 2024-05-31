@@ -13,7 +13,7 @@ public class SalesMenuReqDto {
     private int count;
     private int price;
 
-    public Sales toSales() {
+    public Sales toEntity() {
         return Sales.builder()
                 .adminId(adminId)
                 .menuName(menuName)

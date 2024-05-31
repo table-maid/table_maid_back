@@ -20,7 +20,9 @@ public class PermitAllFilter extends GenericFilter {
                 "/admin",
                 "/server",
                 "/error",
+                "/sales",
                 "/menu"
+
         );
 
         String uri = request.getRequestURI();

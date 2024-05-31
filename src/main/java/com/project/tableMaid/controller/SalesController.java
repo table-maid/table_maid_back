@@ -23,6 +23,12 @@ public class SalesController {
         return ResponseEntity.created(null).body(true);
     }
 
+    @DeleteMapping("/menu")
+    public ResponseEntity<?> deleteSales(@RequestBody int orderNumber) {
+        salesService.deleteSales(orderNumber, 2);
+        return ResponseEntity.created(null).body(true);
+    }
+
     @PostMapping("/order")
     public ResponseEntity<?> addOrder(@RequestBody List<OrderMenuReqDto> orderReqDto) {
         salesService.insertOrders(orderReqDto);

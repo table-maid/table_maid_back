@@ -13,7 +13,7 @@ public class OrderMenuReqDto {
     private int menuCount;
     private int menuTotalPrice;
 
-    public Order toOrder() {
+    public Order toEntity() {
         return Order.builder()
                 .adminId(adminId)
                 .orderNumber(orderNumber)

@@ -84,6 +84,14 @@
             order_tb
     </select>
 
+    <delete id="deleteSales">
+        delete
+        from
+            sales_tb
+        where
+            order_number = #{orderNumber} and admin_id = #{adminId}
+    </delete>
+
     <delete id="deleteOrder">
         delete
         from

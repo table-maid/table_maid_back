@@ -1,6 +1,7 @@
 package com.project.tableMaid.service;
 
 import com.project.tableMaid.dto.account.request.EditPasswordReqDto;
+import com.project.tableMaid.dto.account.response.SearchAdminInfoRespDto;
 import com.project.tableMaid.entity.account.Admin;
 import com.project.tableMaid.exception.ValidException;
 import com.project.tableMaid.repository.AdminMapper;
@@ -35,6 +36,20 @@ public class AdminAccountService {
 
         admin.setPassword(passwordEncoder.encode(editPasswordReqDto.getNewPassword()));
         adminMapper.modifyPassword(admin);
+    }
+
+    public SearchAdminInfoRespDto searchAdminInfoByAdminId(int adminId) {
+        Admin admin = adminMapper.findAdminByAdminId(adminId);
+        if (admin == null) {
+            System.out.println("사용자가 null입니다");
+            return null;
+        }
+        return SearchAdminInfoRespDto.builder()
+                .adminId(admin.getAdminId())
+                .adminName(admin.getAdminName())
+                .username(admin.getUsername())
+                .email(admin.getEmail())
+                .build();
     }
 
 }

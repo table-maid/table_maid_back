@@ -4,14 +4,14 @@ import com.project.tableMaid.entity.menu.MenuCategory;
 import lombok.Data;
 
 @Data
-public class AddMenuCategoryReqDto {
+public class DeleteMenuCategoryReqDto {
     private int adminId;
-    private String menuCategoryName;
+    private int menuCategoryId;
 
     public MenuCategory toEntity() {
         return MenuCategory.builder()
                 .adminId(adminId)
-                .menuCategoryName(menuCategoryName)
+                .menuCategoryId(menuCategoryId)
                 .build();
     }
 }

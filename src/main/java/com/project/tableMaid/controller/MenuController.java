@@ -13,7 +13,7 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
-    @PostMapping("/register")
+    @PostMapping("/menus")
     public ResponseEntity<?> addMenu(@RequestBody RegisterMenuReqDto registerMenuReqDto) {
         menuService.insertMenu(registerMenuReqDto);
         return ResponseEntity.created(null).body(true);
@@ -40,6 +40,12 @@ public class MenuController {
     @PutMapping("/category")
     public ResponseEntity<?> updateMenuCategory(@RequestBody UpdateMenuCategoryReqDto updateMenuCategoryReqDto) {
         menuService.editMenuCategory(updateMenuCategoryReqDto);
+        return ResponseEntity.ok(true);
+    }
+
+    @DeleteMapping("/category")
+    public ResponseEntity<?> deleteMenuCategory(@RequestBody DeleteMenuCategoryReqDto deleteMenuCategoryReqDto) {
+        menuService.deleteMenuCategory(deleteMenuCategoryReqDto);
         return ResponseEntity.ok(true);
     }
 }

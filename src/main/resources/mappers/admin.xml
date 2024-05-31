@@ -29,8 +29,7 @@
             (0, #{adminName}, #{username}, #{password}, #{email}, #{companyNumber}, #{companyName}, #{ownerName}, #{companyAddress}, now(), now())
     </insert>
 
-    <select
-            id="findAdminByUsername"
+    <select id="findAdminByUsername"
             parameterType="string"
             resultMap="AdminResultMap"
     >
@@ -52,7 +51,9 @@
             username = #{username}
     </select>
 
-    <update id="modifyPassword" parameterType="com.project.tableMaid.entity.account.Admin">
+    <update id="modifyPassword"
+            parameterType="com.project.tableMaid.entity.account.Admin"
+    >
         update
             admin_tb
         set
@@ -61,6 +62,23 @@
         where
             admin_id = #{adminId}
     </update>
+
+    <select id="findAdminByAdminId"
+            resultMap="AdminResultMap"
+    >
+        select
+            admin_id,
+            admin_name,
+            username,
+            password,
+            email,
+            create_date,
+            update_date
+        from
+            admin_tb
+        where
+            admin_id = #{adminId}
+    </select>
 
 
 </mapper>

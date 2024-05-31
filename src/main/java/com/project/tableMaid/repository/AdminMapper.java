@@ -8,4 +8,5 @@ public interface AdminMapper {
     public int saveAdmin(Admin admin);
     public Admin findAdminByUsername(String username);
     public int modifyPassword(Admin admin);
+    public Admin findAdminByAdminId(int adminId);
 }

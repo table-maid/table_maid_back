@@ -34,4 +34,9 @@ public class AdminAccountController {
         adminAccountService.editPassword(editPasswordReqDto);
         return ResponseEntity.ok(true);
     }
+
+    @GetMapping("/info")
+    public ResponseEntity<?> getUserInfo(@RequestParam(value = "adminId") int adminId) {
+        return ResponseEntity.ok(adminAccountService.searchAdminInfoByAdminId(adminId));
+    }
 }

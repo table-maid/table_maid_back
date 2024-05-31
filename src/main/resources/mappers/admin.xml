@@ -63,6 +63,7 @@
             admin_id = #{adminId}
     </update>
 
+
     <select id="findAdminByAdminId"
             resultMap="AdminResultMap"
     >
@@ -80,9 +81,9 @@
             admin_id = #{adminId}
     </select>
 
-    <select id="findAccountByNameAndEmail" resultType="string">
+    <select id="findAccountByNameAndEmail" resultMap="AdminResultMap">
         select
-            username
+            *
         from
             admin_tb
         where
@@ -90,6 +91,18 @@
             and email = #{email}
     </select>
 
+    <update id="updateAccountTemporaryPw">
+        select
+            *
+        from
+            admin_tb;
+        update
+            admin_tb
+        set
+            password = #{tempPassword}
+        where
+            admin_id = #{adminId}
+    </update>
 
 </mapper>
 

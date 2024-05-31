@@ -34,5 +34,4 @@ public class AdminAuthController {
         return ResponseEntity.ok(adminAuthService.adminSignin(adminSignupReqDto));
     }
 
-
 }

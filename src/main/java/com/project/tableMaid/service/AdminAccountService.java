@@ -39,11 +39,7 @@ public class AdminAccountService {
     }
 
     public String findAccountByNameAndEmail(String adminName, String email) {
-
-        return adminMapper.findAccountByNameAndEmail(adminName, email);
-
+        String username = adminMapper.findAccountByNameAndEmail(adminName, email).getUsername();
+        return username;
     }
-
-
-
 }

@@ -38,18 +38,12 @@ public class AdminAccountService {
         adminMapper.modifyPassword(admin);
     }
 
-    public SearchAdminInfoRespDto searchAdminInfoByAdminId(int adminId) {
-        Admin admin = adminMapper.findAdminByAdminId(adminId);
-        if (admin == null) {
-            System.out.println("사용자가 null입니다");
-            return null;
-        }
-        return SearchAdminInfoRespDto.builder()
-                .adminId(admin.getAdminId())
-                .adminName(admin.getAdminName())
-                .username(admin.getUsername())
-                .email(admin.getEmail())
-                .build();
+    public String findAccountByNameAndEmail(String adminName, String email) {
+
+        return adminMapper.findAccountByNameAndEmail(adminName, email);
+
     }
+
+
 
 }

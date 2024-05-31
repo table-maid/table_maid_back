@@ -80,6 +80,16 @@
             admin_id = #{adminId}
     </select>
 
+    <select id="findAccountByNameAndEmail" resultType="string">
+        select
+            username
+        from
+            admin_tb
+        where
+            admin_name = #{adminName}
+            and email = #{email}
+    </select>
+
 
 </mapper>
 

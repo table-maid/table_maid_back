@@ -118,8 +118,9 @@
             menu_price = #{menuPrice},
             recommend_menu = #{recommendMenu},
             menu_state = #{menuState},
-            menu_img_url = #{menuImgUrl}
-            menu_category_id = #{menuCategoryId}
+            menu_img_url = #{menuImgUrl},
+            menu_category_id = #{menuCategoryId},
+            update_date = now()
         where
             menu_id = #{menuId}
             and admin_id = #{adminId}

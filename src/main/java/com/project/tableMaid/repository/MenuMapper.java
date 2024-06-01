@@ -17,4 +17,5 @@ public interface MenuMapper {
     int updateMenuCategory(MenuCategory menuCategory);
     int deleteMenuCategory(MenuCategory menuCategory);
     int updateMenu(Menu menu);
+    int deleteMenu(Menu menu);
 }

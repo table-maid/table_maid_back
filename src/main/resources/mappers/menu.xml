@@ -134,4 +134,42 @@
             and menu_id = #{menuId}
     </delete>
 
+    <update id="updateOptionTitle">
+        update
+            option_title_tb
+        set
+            menu_id = #{menuId},
+            title_name = #{titleName}
+        where
+            option_title_id = #{optionTitleId}
+            and admin_id = #{adminId}
+    </update>
+
+    <update id="updateOptionName">
+        update
+            option_name_tb
+        set
+            menu_id = #{menuId},
+            option_name = #{optionName}
+        where
+            option_name_id = #{optionNameId}
+            and admin_id = #{adminId}
+    </update>
+
+    <delete id="deleteOptionTitle">
+        delete from
+            option_title_tb
+        where
+            option_title_id = #{optionTitleId}
+            and admin_id = #{adminId}
+    </delete>
+
+    <delete id="deleteOptionName">
+        delete from
+            option_name_tb
+        where
+            option_name_id = #{optionNameId}
+            and admin_id = #{adminId}
+    </delete>
+
 </mapper>

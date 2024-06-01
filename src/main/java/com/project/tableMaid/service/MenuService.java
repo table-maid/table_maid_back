@@ -15,16 +15,16 @@ public class MenuService {
         menuMapper.saveMenu(registerMenuReqDto.toEntity());
     }
 
+    public void editMenu(UpdateMenuReqDto updateMenuReqDto) {
+        menuMapper.updateMenu(updateMenuReqDto.toEntity());
+    }
+
+    public void deleteMenu(DeleteMenuReqDto deleteMenuReqDto) {
+        menuMapper.deleteMenu(deleteMenuReqDto.toEntity());
+    }
+
     public void insertMenuCategory(AddMenuCategoryReqDto addMenuCategoryReqDto) {
         menuMapper.saveMenuCategory(addMenuCategoryReqDto.toEntity());
-    }
-
-    public void insertOptionTitle(AddOptionTitleReqDto addOptionTitleReqDto) {
-        menuMapper.saveOptionTitle(addOptionTitleReqDto.toEntity());
-    }
-
-    public void insertOptionName(AddOptionNameReqDto addOptionNameReqDto) {
-        menuMapper.saveOptionName(addOptionNameReqDto.toEntity());
     }
 
     public void editMenuCategory(UpdateMenuCategoryReqDto updateMenuCategoryReqDto) {
@@ -35,11 +35,28 @@ public class MenuService {
         menuMapper.deleteMenuCategory(deleteMenuCategoryReqDto.toEntity());
     }
 
-    public void editMenu(UpdateMenuReqDto updateMenuReqDto) {
-        menuMapper.updateMenu(updateMenuReqDto.toEntity());
+    public void insertOptionTitle(AddOptionTitleReqDto addOptionTitleReqDto) {
+        menuMapper.saveOptionTitle(addOptionTitleReqDto.toEntity());
     }
 
-    public void deleteMenu(DeleteMenuReqDto deleteMenuReqDto) {
-        menuMapper.deleteMenu(deleteMenuReqDto.toEntity());
+    public void editOptionTitle(UpdateOptionTitleReqDto updateOptionTitleReqDto) {
+        menuMapper.updateOptionTitle(updateOptionTitleReqDto.toEntity());
     }
+
+    public void deleteOptionTitle(DeleteOptionTitleReqDto deleteOptionTitleReqDto) {
+        menuMapper.deleteOptionTitle(deleteOptionTitleReqDto.toEntity());
+    }
+
+    public void insertOptionName(AddOptionNameReqDto addOptionNameReqDto) {
+        menuMapper.saveOptionName(addOptionNameReqDto.toEntity());
+    }
+
+    public void editOptionName(UpdateOptionNameReqDto updateOptionNameReqDto) {
+        menuMapper.updateOptionName(updateOptionNameReqDto.toEntity());
+    }
+
+    public void deleteOptionName(DeleteOptionNameReqDto deleteOptionNameReqDto) {
+        menuMapper.deleteOptionName(deleteOptionNameReqDto.toEntity());
+    }
+
 }

@@ -55,10 +55,34 @@ public class MenuController {
         return ResponseEntity.created(null).body(true);
     }
 
+    @PutMapping("/title")
+    public ResponseEntity<?> updateOptionTitle(@RequestBody UpdateOptionTitleReqDto updateOptionTitleReqDto) {
+        menuService.editOptionTitle(updateOptionTitleReqDto);
+        return ResponseEntity.ok(true);
+    }
+
+    @DeleteMapping("/title")
+    public ResponseEntity<?> deleteOptionTitle(@RequestBody DeleteOptionTitleReqDto deleteOptionTitleReqDto) {
+        menuService.deleteOptionTitle(deleteOptionTitleReqDto);
+        return ResponseEntity.ok(true);
+    }
+
     @PostMapping("/name")
     public ResponseEntity<?> addOptionName(@RequestBody AddOptionNameReqDto addOptionNameReqDto) {
         menuService.insertOptionName(addOptionNameReqDto);
         return ResponseEntity.created(null).body(true);
+    }
+
+    @PutMapping("/name")
+    public ResponseEntity<?> updateOptionName(@RequestBody UpdateOptionNameReqDto updateOptionNameReqDto) {
+        menuService.editOptionName(updateOptionNameReqDto);
+        return ResponseEntity.ok(true);
+    }
+
+    @DeleteMapping("/name")
+    public ResponseEntity<?> deleteOptionName(@RequestBody DeleteOptionNameReqDto deleteOptionNameReqDto) {
+        menuService.deleteOptionName(deleteOptionNameReqDto);
+        return ResponseEntity.ok(true);
     }
 
 }

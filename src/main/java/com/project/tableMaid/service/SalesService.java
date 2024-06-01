@@ -3,6 +3,7 @@ package com.project.tableMaid.service;
 import com.project.tableMaid.dto.sales.request.OrderMenuReqDto;
 import com.project.tableMaid.dto.sales.request.SalesMenuReqDto;
 import com.project.tableMaid.dto.sales.response.OrderMenuRespDto;
+import com.project.tableMaid.dto.sales.response.SalesMenuRespDto;
 import com.project.tableMaid.entity.sales.Order;
 import com.project.tableMaid.entity.sales.Sales;
 import com.project.tableMaid.exception.DeleteException;
@@ -36,6 +37,17 @@ public class SalesService {
         if(successCount < 1) {
             throw new SaveException(Map.of("insertSales 오류", "정상적으로 판매되지 않았습니다."));
         }
+    }
+
+    //판매 GET
+    public List<SalesMenuRespDto> searchSales () {
+        List<Sales> sales = salesMapper.findSales();
+        List<SalesMenuRespDto> SalesMenuRespDtos = new ArrayList<>();
+        for (Sales sale : sales) {
+            SalesMenuRespDtos.add(sale.toSalesMenuRespDto());
+        }
+
+        return SalesMenuRespDtos;
     }
 
     // 오더 POST

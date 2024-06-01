@@ -24,6 +24,11 @@ public class SalesController {
         return ResponseEntity.created(null).body(true);
     }
 
+    @GetMapping("/menu")
+    public ResponseEntity<?> getSales() {
+        return ResponseEntity.ok(salesService.searchSales());
+    }
+
     @DeleteMapping("/menu")
     public ResponseEntity<?> deleteSales(@RequestBody int orderNumber) {
         salesService.deleteSales(orderNumber, 2);

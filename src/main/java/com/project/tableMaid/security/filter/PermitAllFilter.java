@@ -21,7 +21,8 @@ public class PermitAllFilter extends GenericFilter {
                 "/server",
                 "/error",
                 "/sales",
-                "/menu"
+                "/menu",
+                "/user"
 
         );
 

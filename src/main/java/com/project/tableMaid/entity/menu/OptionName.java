@@ -1,5 +1,6 @@
 package com.project.tableMaid.entity.menu;
 
+import com.project.tableMaid.dto.menu.response.OptionsRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,10 @@ public class OptionName {
     private int optionNameId;
     private int adminId;
     private int menuId;
+    private int titleId;
     private String optionName;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+
+    private OptionTitle optionTitle;
 }

@@ -8,12 +8,14 @@ import lombok.Data;
 public class AddOptionNameReqDto {
     private int adminId;
     private int menuId;
+    private int titleId;
     private String optionName;
 
     public OptionName toEntity() {
         return OptionName.builder()
                 .adminId(adminId)
                 .menuId(menuId)
+                .titleId(titleId)
                 .optionName(optionName)
                 .build();
     }

@@ -1,15 +1,73 @@
 package com.project.tableMaid.service;
 
+import com.project.tableMaid.aop.annotation.ParamsPrintAspect;
 import com.project.tableMaid.dto.menu.request.*;
+import com.project.tableMaid.dto.menu.response.CategoriesRespDto;
+import com.project.tableMaid.dto.menu.response.MenusRespDto;
+import com.project.tableMaid.dto.menu.response.OptionsRespDto;
+import com.project.tableMaid.entity.menu.Menu;
+import com.project.tableMaid.entity.menu.MenuCategory;
+import com.project.tableMaid.entity.menu.OptionName;
 import com.project.tableMaid.repository.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class MenuService {
 
     @Autowired
     private MenuMapper menuMapper;
+    //카테고리 조회
+    @Transactional(rollbackFor = Exception.class)
+    public List<CategoriesRespDto> getCategories(int adminId) {
+        List<MenuCategory> menuCategories = menuMapper.getMenuCategoryByAdminId(adminId);
+        List<CategoriesRespDto> categoriesRespDtoList = new ArrayList<>();
+        for (MenuCategory menuCategory : menuCategories) {
+            categoriesRespDtoList.add(menuCategory.toCategoriesRespDto());
+        }
+        return categoriesRespDtoList;
+    }
+    // 메뉴 조회
+    @Transactional(rollbackFor = Exception.class)
+    public List<MenusRespDto> getMenusByCategoryId(int adminId, int menuCategoryId) {
+        List<Menu> menus = menuMapper.getMenuByAdminIdAndCategoryId(adminId, menuCategoryId);
+        List<MenusRespDto> menuRespDtoList = new ArrayList<>();
+        for (Menu menu : menus) {
+            menuRespDtoList.add(menu.toMenuRespDto());
+        }
+        return menuRespDtoList;
+    }
+    // 메뉴 별 옵션 조회
+    @Transactional(rollbackFor = Exception.class)
+    public List<OptionsRespDto> getOptionsByMenuId(int adminId, int menuId) {
+        List<OptionName> options = menuMapper.getOptionsByMenuId(adminId, menuId);
+        Map<Integer, OptionsRespDto> optionsMap = new HashMap<>();
+
+        for (OptionName optionName : options) {
+            int optionTitleId = optionName.getOptionTitle().getOptionTitleId();
+            OptionsRespDto optionsRespDto = optionsMap.get(optionTitleId);
+            if (optionsRespDto == null) {
+                optionsRespDto = OptionsRespDto.builder()
+                        .adminId(optionName.getAdminId())
+                        .menuId(optionName.getMenuId())
+                        .optionTitleId(optionTitleId)
+                        .titleName(optionName.getOptionTitle().getTitleName())
+                        .optionNameIds(new ArrayList<>())
+                        .optionNames(new ArrayList<>())
+                        .build();
+                optionsMap.put(optionTitleId, optionsRespDto);
+            }
+            optionsRespDto.getOptionNameIds().add(optionName.getOptionNameId());
+            optionsRespDto.getOptionNames().add(optionName.getOptionName());
+        }
+        return new ArrayList<>(optionsMap.values());
+    }
 
     public void insertMenu(RegisterMenuReqDto registerMenuReqDto) {
         menuMapper.saveMenu(registerMenuReqDto.toEntity());

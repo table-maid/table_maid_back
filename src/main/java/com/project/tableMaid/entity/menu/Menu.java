@@ -1,5 +1,6 @@
 package com.project.tableMaid.entity.menu;
 
+import com.project.tableMaid.dto.menu.response.MenusRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,4 +25,16 @@ public class Menu {
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
+    public MenusRespDto toMenuRespDto() {
+        return MenusRespDto.builder()
+                .adminId(adminId)
+                .menuCategoryId(menuCategoryId)
+                .menuName(menuName)
+                .menuCode(menuCode)
+                .menuPrice(menuPrice)
+                .menuState(menuState)
+                .menuImgUrl(menuImgUrl)
+                .recommendMenu(recommendMenu)
+                .build();
+    }
 }

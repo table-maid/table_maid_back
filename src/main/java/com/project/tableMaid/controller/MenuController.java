@@ -1,5 +1,6 @@
 package com.project.tableMaid.controller;
 
+import com.project.tableMaid.aop.annotation.ParamsPrintAspect;
 import com.project.tableMaid.dto.menu.request.*;
 import com.project.tableMaid.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,21 @@ public class MenuController {
 
     @Autowired
     private MenuService menuService;
+
+    @GetMapping("/categories")
+    public ResponseEntity<?> getCategoriesByAdminId(@RequestParam int adminId) {
+
+        return ResponseEntity.ok(menuService.getCategories(adminId));
+    }
+    @GetMapping("/menus")
+    public ResponseEntity<?> getCategoriesByAdminId(@RequestParam int adminId, int menuCategoryId) {
+
+        return ResponseEntity.ok(menuService.getMenusByCategoryId(adminId, menuCategoryId));
+    }
+    @GetMapping("/option")
+    public ResponseEntity<?> getOptionsByAdminId(@RequestParam int adminId, int optionMenuId) {
+        return ResponseEntity.ok(menuService.getOptionsByMenuId(adminId, optionMenuId));
+    }
 
     @PostMapping("/menus")
     public ResponseEntity<?> addMenu(@RequestBody RegisterMenuReqDto registerMenuReqDto) {
@@ -49,37 +65,37 @@ public class MenuController {
         return ResponseEntity.ok(true);
     }
 
-    @PostMapping("/title")
+    @PostMapping("/option/title")
     public ResponseEntity<?> addOptionTitle(@RequestBody AddOptionTitleReqDto addOptionTitleReqDto) {
         menuService.insertOptionTitle(addOptionTitleReqDto);
         return ResponseEntity.created(null).body(true);
     }
 
-    @PutMapping("/title")
+    @PutMapping("/option/title")
     public ResponseEntity<?> updateOptionTitle(@RequestBody UpdateOptionTitleReqDto updateOptionTitleReqDto) {
         menuService.editOptionTitle(updateOptionTitleReqDto);
         return ResponseEntity.ok(true);
     }
 
-    @DeleteMapping("/title")
+    @DeleteMapping("/option/title")
     public ResponseEntity<?> deleteOptionTitle(@RequestBody DeleteOptionTitleReqDto deleteOptionTitleReqDto) {
         menuService.deleteOptionTitle(deleteOptionTitleReqDto);
         return ResponseEntity.ok(true);
     }
 
-    @PostMapping("/name")
+    @PostMapping("/option/name")
     public ResponseEntity<?> addOptionName(@RequestBody AddOptionNameReqDto addOptionNameReqDto) {
         menuService.insertOptionName(addOptionNameReqDto);
         return ResponseEntity.created(null).body(true);
     }
 
-    @PutMapping("/name")
+    @PutMapping("/option/name")
     public ResponseEntity<?> updateOptionName(@RequestBody UpdateOptionNameReqDto updateOptionNameReqDto) {
         menuService.editOptionName(updateOptionNameReqDto);
         return ResponseEntity.ok(true);
     }
 
-    @DeleteMapping("/name")
+    @DeleteMapping("/option/name")
     public ResponseEntity<?> deleteOptionName(@RequestBody DeleteOptionNameReqDto deleteOptionNameReqDto) {
         menuService.deleteOptionName(deleteOptionNameReqDto);
         return ResponseEntity.ok(true);

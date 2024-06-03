@@ -7,13 +7,17 @@ import com.project.tableMaid.entity.menu.OptionTitle;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface MenuMapper {
+    List<MenuCategory> getMenuCategoryByAdminId(@Param("adminId") int adminId);
+    List<Menu> getMenuByAdminIdAndCategoryId(@Param("adminId") int adminId, @Param("menuCategoryId") int menuCategoryId);
+    List<OptionName> getOptionsByMenuId(@Param("adminId") int adminId, @Param("menuId") int menuId);
     int saveMenu(Menu menu);
     int saveMenuCategory(MenuCategory menuCategory);
     int saveOptionTitle(OptionTitle optionTitle);
     int saveOptionName(OptionName optionName);
-    int saveOptionRegister(@Param("optionTitleId") int optionTitleId, @Param("optionNameId") int optionNameId);
     int updateMenuCategory(MenuCategory menuCategory);
     int deleteMenuCategory(MenuCategory menuCategory);
     int updateMenu(Menu menu);

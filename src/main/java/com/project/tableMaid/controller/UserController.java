@@ -17,6 +17,16 @@ public class UserController {
 
     @GetMapping("/company/name")
     public ResponseEntity<?> getCompanyName(@RequestParam(value = "adminId") int adminId) {
-        return ResponseEntity.ok(userService.searchCompanyName(adminId));
+        return ResponseEntity.ok(userService.searchCompanyNameByAdminId(adminId));
+    }
+
+    @GetMapping("/category")
+    public ResponseEntity<?> getCategories(@RequestParam(value = "adminId") int adminId) {
+        return ResponseEntity.ok(userService.searchCategoriesByAdminId(adminId));
+    }
+
+    @GetMapping("/menu")
+    public ResponseEntity<?> getMenus(@RequestParam(value = "adminId") int adminId, @RequestParam(value = "menuCategoryId") int menuCategoryId) {
+        return ResponseEntity.ok(userService.searchMenusByAdminIdAndCategoryId(adminId, menuCategoryId));
     }
 }

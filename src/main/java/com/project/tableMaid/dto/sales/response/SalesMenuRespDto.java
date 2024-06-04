@@ -16,6 +16,7 @@ public class SalesMenuRespDto {
     private int day;
     private int count;
     private int menuTotalPrice;
+    private int totalSales;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 }

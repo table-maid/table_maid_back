@@ -22,21 +22,16 @@ public class Sales {
     private int day;
     private int count;
     private int menuTotalPrice;
+    private int totalSales;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
     public SalesMenuRespDto toSalesMenuRespDto () {
         return SalesMenuRespDto.builder()
-                .adminId(adminId)
-                .orderNumber(orderNumber)
-                .menuName(menuName)
                 .year(year)
                 .month(month)
                 .day(day)
-                .count(count)
-                .menuTotalPrice(menuTotalPrice)
-                .createDate(createDate)
-                .updateDate(updateDate)
+                .totalSales(totalSales)
                 .build();
     }
 }

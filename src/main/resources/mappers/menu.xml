@@ -53,6 +53,7 @@
         where
             admin_id = #{adminId}
     </select>
+
     <select id="getMenuByAdminIdAndCategoryId" resultMap="MenuResultMap">
         select
             *
@@ -62,6 +63,7 @@
             admin_id = #{adminId} and
             menu_category_id = #{menuCategoryId}
     </select>
+
     <select id="getOptionsByMenuId" resultMap="OptionNameResultMap">
         select
             ont.admin_id,
@@ -157,6 +159,7 @@
         set
             menu_id = #{menuId},
             title_name = #{titleName}
+            update_date = now()
         where
             option_title_id = #{optionTitleId}
             and admin_id = #{adminId}
@@ -169,6 +172,7 @@
             menu_id = #{menuId},
             option_name = #{optionName}
             title_id = #{titleId}
+            update_date = now()
         where
             option_name_id = #{optionNameId}
             and admin_id = #{adminId}

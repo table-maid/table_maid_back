@@ -21,7 +21,8 @@
 
     <select id="findCompanyNameByAdminId" resultMap="AdminResultMap">
         select
-            company_name 
+            company_name,
+            admin_id
         from
             admin_tb
         where

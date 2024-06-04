@@ -19,7 +19,7 @@ public class Admin {
     private String username;
     private String password;
     private String email;
-    private String companyNumber;
+    private int companyNumber;
     private String companyName;
     private String ownerName;
     private String companyAddress;

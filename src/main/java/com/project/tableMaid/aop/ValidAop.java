@@ -44,6 +44,7 @@ public class ValidAop {
             return proceedingJoinPoint.proceed();
         }
 
+        // 아이디 중복체크
         if (methodName.equals("adminSignup")) {
             AdminSignupReqDto adminSignupReqDto = null;
 
@@ -64,6 +65,50 @@ public class ValidAop {
             }
         }
 
+        // 사업장 등록번호 중복체크
+        if (methodName.equals("adminSignup")) {
+            AdminSignupReqDto adminSignupReqDto = null;
+
+            // 객체타입 확인 instanceof
+            for (Object arg : args) {
+                if(arg instanceof AdminSignupReqDto) {
+                    adminSignupReqDto = (AdminSignupReqDto) arg;
+                    break;
+                }
+            }
+
+            if (adminSignupReqDto == null) {
+                return proceedingJoinPoint.proceed();
+            }
+
+            if (adminMapper.findCompanyNumber(adminSignupReqDto.getCompanyNumber()) != null) {
+                ObjectError objectError = new FieldError("companyNumber", "companyNumber", "이미 존재하는 사업자 등록번호 입니다.");
+                bindingResult.addError(objectError);
+            }
+        }
+
+        // 사업장 주소 중복체크
+        if (methodName.equals("adminSignup")) {
+            AdminSignupReqDto adminSignupReqDto = null;
+
+            for (Object arg : args) {
+                if(arg instanceof AdminSignupReqDto) {
+                    adminSignupReqDto = (AdminSignupReqDto) arg;
+                    break;
+                }
+            }
+
+            if ( adminSignupReqDto == null) {
+                return proceedingJoinPoint.proceed();
+            }
+
+            if (adminMapper.findCompanyAddress(adminSignupReqDto.getCompanyAddress()) != null) {
+                ObjectError objectError = new FieldError("companyAddress", "companyAddress", "이미 존재하는 사업장 주소 입니다.");
+                bindingResult.addError(objectError);
+            }
+        }
+
+        // 발생한 에러 보내기
         if (bindingResult.hasErrors()) {
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
             Map<String, String> errorMap = new HashMap<>();

@@ -51,6 +51,30 @@
             username = #{username}
     </select>
 
+    <select id="findCompanyNumber"
+            parameterType="int"
+            resultMap="AdminResultMap"
+    >
+        select
+            *
+        from
+            admin_tb
+        where
+            company_number = #{companyNumber}
+    </select>
+
+    <select id="findCompanyAddress"
+            parameterType="string"
+            resultMap="AdminResultMap"
+    >
+        select
+            *
+        from
+            admin_tb
+        where
+            company_address = #{companyAddress}
+    </select>
+
     <update id="modifyPassword"
             parameterType="com.project.tableMaid.entity.account.Admin"
     >

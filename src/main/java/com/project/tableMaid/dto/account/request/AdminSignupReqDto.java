@@ -20,7 +20,7 @@ public class AdminSignupReqDto {
     @Email(regexp = "^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{1,3}$",message = "이메일 형식이어야 합니다.") //0314-2
     private String email;
     @Pattern(regexp = "^\\d{10}$", message = "사업자 등록 번호는 숫자 10자리 형식이어야합니다.")
-    private String companyNumber;
+    private int companyNumber;
     @NotEmpty(message = "회사명은 필수항목입니다.")
     private String companyName;
     @Pattern(regexp = "^[가-힣a-zA-Z\\s.]+$\n",message = "대표자명에는 숫자, 특수문자가 들어갈 수 없습니다.")

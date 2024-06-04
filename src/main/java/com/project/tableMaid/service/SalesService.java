@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class SalesService {
@@ -42,12 +43,8 @@ public class SalesService {
     //판매 GET
     public List<SalesMenuRespDto> searchSales () {
         List<Sales> sales = salesMapper.findSales();
-        List<SalesMenuRespDto> SalesMenuRespDtos = new ArrayList<>();
-        for (Sales sale : sales) {
-            SalesMenuRespDtos.add(sale.toSalesMenuRespDto());
-        }
 
-        return SalesMenuRespDtos;
+        return sales.stream().map(Sales::toSalesMenuRespDto).collect(Collectors.toList());
     }
 
     // 오더 POST

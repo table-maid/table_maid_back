@@ -15,6 +15,7 @@
         <result property="day" column="day"/>
         <result property="count" column="count"/>
         <result property="menuTotalPrice" column="menu_total_price"/>
+        <result property="totalSales" column="total_sales"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
     </resultMap>
@@ -52,19 +53,23 @@
         resultMap="salesResultMap"
     >
         select
-            sales_id,
-            admin_id,
-            order_number,
-            menu_name,
             year,
             month,
             day,
             count,
-            menu_total_price,
+            sum(menu_total_price) as total_sales,
             create_date,
             update_date
         from
-            sales_tb;
+            sales_tb
+        group by
+            year,
+            month,
+            day
+        order by
+            year ASC,
+            month ASC,
+            day ASC;
     </select>
 
     <select

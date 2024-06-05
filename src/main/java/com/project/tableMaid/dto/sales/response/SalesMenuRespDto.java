@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class SalesMenuRespDto {
+    private int salesId;
     private int adminId;
     private int orderNumber;
     private String menuName;

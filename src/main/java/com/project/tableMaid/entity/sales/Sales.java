@@ -27,6 +27,7 @@ public class Sales {
 
     public SalesMenuRespDto toSalesMenuRespDto () {
         return SalesMenuRespDto.builder()
+                .salesId(salesId)
                 .adminId(adminId)
                 .orderNumber(orderNumber)
                 .menuName(menuName)

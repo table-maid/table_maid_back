@@ -1,6 +1,6 @@
 package com.project.tableMaid.entity.sales;
 
-import com.project.tableMaid.dto.sales.response.SalesMenuRespDto;
+import com.project.tableMaid.dto.sales.response.TotalSalesRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,30 +12,20 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Sales {
-    private int salesId;
-    private int adminId;
-    private int orderNumber;
-    private String menuName;
+public class TotalSales {
     private int year;
     private int month;
     private int day;
-    private int count;
-    private int menuTotalPrice;
+    private int totalSales;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
-    public SalesMenuRespDto toSalesMenuRespDto () {
-        return SalesMenuRespDto.builder()
-                .salesId(salesId)
-                .adminId(adminId)
-                .orderNumber(orderNumber)
-                .menuName(menuName)
+    public TotalSalesRespDto toTotalSalesMenuRespDto () {
+        return TotalSalesRespDto.builder()
                 .year(year)
                 .month(month)
                 .day(day)
-                .count(count)
-                .menuTotalPrice(menuTotalPrice)
+                .totalSales(totalSales)
                 .createDate(createDate)
                 .updateDate(updateDate)
                 .build();

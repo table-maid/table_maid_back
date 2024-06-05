@@ -26,7 +26,12 @@ public class SalesController {
 
     @GetMapping("/menu")
     public ResponseEntity<?> getSales() {
-        return ResponseEntity.ok().body(salesService.searchSales());
+        return ResponseEntity.ok().body(salesService.searchTotalSales());
+    }
+
+    @GetMapping("/menu/select")
+    public ResponseEntity<?> getSelectSales() {
+        return ResponseEntity.ok().body(salesService.selectSales());
     }
 
     @DeleteMapping("/menu")

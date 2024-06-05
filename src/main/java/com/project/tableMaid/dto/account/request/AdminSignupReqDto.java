@@ -4,14 +4,12 @@ import com.project.tableMaid.entity.account.Admin;
 import lombok.Data;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 
 @Data
 public class AdminSignupReqDto {
 
-    @Pattern(regexp = "^[가-힣a-zA-Z\\s.]+$\n{2,25}",message = "이름에는 숫자, 특수문자가 들어갈 수 없습니다.")
+    @Pattern(regexp = "^[가-힇]{1,}$", message = "한글문자 형식이어야 합니다")
     private String adminName;
     @Pattern(regexp = "^[A-Za-z0-9]{4,10}$", message = "아이디는 영문자, 숫자 5 ~ 10자리 형식이어야 합니다.")
     private String username;
@@ -19,11 +17,12 @@ public class AdminSignupReqDto {
     private String password;
     @Email(regexp = "^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{1,3}$",message = "이메일 형식이어야 합니다.") //0314-2
     private String email;
-    @Pattern(regexp = "^\\d{10}$", message = "사업자 등록 번호는 숫자 10자리 형식이어야합니다.")
+    @Min(value = 1000000000, message = "사업자 등록 번호는 10자리 숫자이어야 합니다.")
+    @Max(value = 9999999999L, message = "사업자 등록 번호는 10자리 숫자이어야 합니다.")
     private int companyNumber;
     @NotEmpty(message = "회사명은 필수항목입니다.")
     private String companyName;
-    @Pattern(regexp = "^[가-힣a-zA-Z\\s.]+$\n",message = "대표자명에는 숫자, 특수문자가 들어갈 수 없습니다.")
+    @Pattern(regexp = "^[가-힇]{1,}$", message = "한글문자 형식이어야 합니다")
     private String ownerName;
     @NotEmpty(message = "주소는 필수항목입니다.")
     private String companyAddress;

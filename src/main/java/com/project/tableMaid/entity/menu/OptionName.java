@@ -18,6 +18,7 @@ public class OptionName {
     private int menuId;
     private int titleId;
     private String optionName;
+    private int optionPrice;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 

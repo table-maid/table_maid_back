@@ -12,7 +12,9 @@ import lombok.NoArgsConstructor;
 
 public class MenusRespDto {
     private int adminId;
+    private int menuId;
     private int menuCategoryId;
+    private String menuCategoryName;
     private String menuCode;
     private String menuName;
     private int menuPrice;

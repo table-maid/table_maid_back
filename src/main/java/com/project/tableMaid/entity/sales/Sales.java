@@ -26,14 +26,6 @@ public class Sales {
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
-    public SalesMenuRespDto toTotalSalesMenuRespDto () {
-        return SalesMenuRespDto.builder()
-                .year(year)
-                .month(month)
-                .day(day)
-                .totalSales(totalSales)
-                .build();
-    }
     public SalesMenuRespDto toSalesMenuRespDto () {
         return SalesMenuRespDto.builder()
                 .adminId(adminId)

@@ -19,6 +19,14 @@
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
     </resultMap>
+    <resultMap id="totalSalesResultMap" type="com.project.tableMaid.entity.sales.TotalSales">
+        <result property="year" column="year"/>
+        <result property="month" column="month"/>
+        <result property="day" column="day"/>
+        <result property="totalSales" column="total_sales"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
 
     <resultMap id="orderResultMap" type="com.project.tableMaid.entity.sales.Order">
         <id property="orderId" column="order_id"/>
@@ -50,7 +58,7 @@
 
     <select
         id="findTotalSales"
-        resultMap="salesResultMap"
+        resultMap="totalSalesResultMap"
     >
         select
             year,

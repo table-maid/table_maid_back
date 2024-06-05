@@ -40,8 +40,15 @@ public class SalesService {
         }
     }
 
+    //총매출 GET
+    public List<SalesMenuRespDto> searchTotalSales () {
+        List<Sales> sales = salesMapper.findTotalSales();
+
+        return sales.stream().map(Sales::toTotalSalesMenuRespDto).collect(Collectors.toList());
+    }
+
     //판매 GET
-    public List<SalesMenuRespDto> searchSales () {
+    public List<SalesMenuRespDto> selectSales () {
         List<Sales> sales = salesMapper.findSales();
 
         return sales.stream().map(Sales::toSalesMenuRespDto).collect(Collectors.toList());

@@ -49,14 +49,13 @@
     </insert>
 
     <select
-        id="findSales"
+        id="findTotalSales"
         resultMap="salesResultMap"
     >
         select
             year,
             month,
             day,
-            count,
             sum(menu_total_price) as total_sales,
             create_date,
             update_date
@@ -70,6 +69,25 @@
             year ASC,
             month ASC,
             day ASC;
+    </select>
+
+    <select
+        id="findSales"
+        resultMap="salesResultMap"
+    >
+        select
+            sales_id,
+            admin_id,
+            menu_name,
+            year,
+            month,
+            day,
+            count,
+            menu_total_price,
+            create_date,
+            update_date
+        from
+            sales_tb
     </select>
 
     <select

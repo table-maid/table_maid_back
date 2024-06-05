@@ -16,20 +16,23 @@ public class MenuController {
 
     @GetMapping("/categories")
     public ResponseEntity<?> getCategoriesByAdminId(@RequestParam int adminId) {
-
         return ResponseEntity.ok(menuService.getCategories(adminId));
     }
     @GetMapping("/menus")
     public ResponseEntity<?> getCategoriesByAdminId(@RequestParam int adminId, int menuCategoryId) {
-
+        System.out.println(menuCategoryId);
         return ResponseEntity.ok(menuService.getMenusByCategoryId(adminId, menuCategoryId));
     }
     @GetMapping("/option")
-    public ResponseEntity<?> getOptionsByAdminId(@RequestParam int adminId, int optionMenuId) {
-        return ResponseEntity.ok(menuService.getOptionsByMenuId(adminId, optionMenuId));
+    public ResponseEntity<?> getOptionsByAdminIdAndMenuId(@RequestParam int adminId, int menuId) {
+        return ResponseEntity.ok(menuService.getOptionsByMenuId(adminId, menuId));
+    }
+    @GetMapping("/option/title")
+    public ResponseEntity<?> getOptionTitleByAdminIdAndMenuId(@RequestParam int adminId, int menuId) {
+        return ResponseEntity.ok(menuService.getOptionTitle(adminId,menuId));
     }
 
-    @PostMapping("/menus")
+    @PostMapping("/menu")
     public ResponseEntity<?> addMenu(@RequestBody RegisterMenuReqDto registerMenuReqDto) {
         menuService.insertMenu(registerMenuReqDto);
         return ResponseEntity.created(null).body(true);
@@ -67,6 +70,7 @@ public class MenuController {
 
     @PostMapping("/option/title")
     public ResponseEntity<?> addOptionTitle(@RequestBody AddOptionTitleReqDto addOptionTitleReqDto) {
+        System.out.println(addOptionTitleReqDto);
         menuService.insertOptionTitle(addOptionTitleReqDto);
         return ResponseEntity.created(null).body(true);
     }
@@ -83,7 +87,7 @@ public class MenuController {
         return ResponseEntity.ok(true);
     }
 
-    @PostMapping("/option/name")
+    @PostMapping("/option")
     public ResponseEntity<?> addOptionName(@RequestBody AddOptionNameReqDto addOptionNameReqDto) {
         menuService.insertOptionName(addOptionNameReqDto);
         return ResponseEntity.created(null).body(true);

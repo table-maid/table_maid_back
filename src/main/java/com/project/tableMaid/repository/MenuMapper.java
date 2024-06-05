@@ -14,6 +14,7 @@ public interface MenuMapper {
     List<MenuCategory> getMenuCategoryByAdminId(@Param("adminId") int adminId);
     List<Menu> getMenuByAdminIdAndCategoryId(@Param("adminId") int adminId, @Param("menuCategoryId") int menuCategoryId);
     List<OptionName> getOptionsByMenuId(@Param("adminId") int adminId, @Param("menuId") int menuId);
+    List<OptionTitle> getOptionTitleByMenuId(@Param("adminId") int adminId, @Param("menuId") int menuId);
     int saveMenu(Menu menu);
     int saveMenuCategory(MenuCategory menuCategory);
     int saveOptionTitle(OptionTitle optionTitle);

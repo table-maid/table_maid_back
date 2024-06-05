@@ -26,6 +26,8 @@ public class TotalSales {
                 .month(month)
                 .day(day)
                 .totalSales(totalSales)
+                .createDate(createDate)
+                .updateDate(updateDate)
                 .build();
     }
 }

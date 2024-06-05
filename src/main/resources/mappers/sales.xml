@@ -63,8 +63,7 @@
             sales_tb
         group by
             year,
-            month,
-            day
+            month
         order by
             year ASC,
             month ASC,

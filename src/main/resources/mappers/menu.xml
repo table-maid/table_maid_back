@@ -16,7 +16,6 @@
         <result property="menuImgUrl" column="menu_img_url" />
         <result property="createDate" column="create_date" />
         <result property="updateDate" column="update_date" />
-        <association property="menuCategory" resultMap="MenuCategoryResultMap"/>
     </resultMap>
 
     <resultMap id="MenuCategoryResultMap" type="com.project.tableMaid.entity.menu.MenuCategory">
@@ -43,7 +42,6 @@
         <result property="optionName" column="option_name" />
         <result property="createDate" column="create_date" />
         <result property="updateDate" column="update_date" />
-        <result property="optionPrice" column="option_price"/>
         <association property="optionTitle" resultMap="OptionTitleResultMap" />
     </resultMap>
 
@@ -58,20 +56,20 @@
 
     <select id="getMenuByAdminIdAndCategoryId" resultMap="MenuResultMap">
         select
-            mt.*,
-            mct.menu_category_name
+            menu_id,
+            admin_id,
+            menu_category_id,
+            menu_code,
+            menu_name,
+            menu_price,
+            recommend_menu,
+            menu_state,
+            menu_img_url
         from
-            menu_tb mt
-            left outer join menu_category_tb mct on (mct.menu_category_id = mt.menu_category_id)
+            menu_tb
         where
-            mt.admin_id = #{adminId}
-        <choose>
-            <when test="menuCategoryId != 0">
-                and mt.menu_category_id = #{menuCategoryId}
-            </when>
-        </choose>
-        order by
-            mt.menu_category_id
+            admin_id = #{adminId}
+            and menu_category_id = #{menuCategoryId}
     </select>
 
     <select id="getOptionsByMenuId" resultMap="OptionNameResultMap">
@@ -90,21 +88,14 @@
             ont.admin_id = #{adminId}
             and ont.menu_id = #{menuId}
     </select>
-    <select id="getOptionTitleByMenuId" resultMap="OptionTitleResultMap">
-        select
-            *
-        from
-            option_title_tb
-        where
-            admin_id = #{adminId} and
-            menu_id = #{menuId}
-    </select>
+
     <insert id="saveMenu" parameterType="com.project.tableMaid.entity.menu.Menu" >
         insert into
             menu_tb
         values
             (0, #{adminId}, #{menuCategoryId}, #{menuCode}, #{menuName}, #{menuPrice}, #{recommendMenu}, #{menuState}, #{menuImgUrl}, now(), now())
     </insert>
+
     <insert id="saveMenuCategory" parameterType="com.project.tableMaid.entity.menu.MenuCategory" >
         insert into
             menu_category_tb
@@ -123,7 +114,7 @@
         insert into
             option_name_tb
         values
-            (0, #{adminId}, #{menuId}, #{titleId}, #{optionName}, #{optionPrice}, now(), now())
+            (0, #{adminId}, #{menuId}, #{titleId}, #{optionName}, now(), now())
     </insert>
     
     <update id="updateMenuCategory">
@@ -187,14 +178,12 @@
             option_name_tb
         set
             menu_id = #{menuId},
-            option_name = #{optionName},
-            option_price = #{optionPrice},
+            option_name = #{optionName}
             title_id = #{titleId}
             update_date = now()
         where
             option_name_id = #{optionNameId}
             and admin_id = #{adminId}
-            and menu_id = #{menuId},
             and title_id = #{titleId}
     </update>
 

@@ -15,11 +15,10 @@ public class RegisterMenuReqDto {
     private int menuState;
     private String menuImgUrl;
     private int menuCategoryId;
-    private String menuCategoryName;
 
     public Menu toEntity() {
         if (menuCode == null || menuCode.isEmpty()) {
-            this.menuCode = menuCategoryName + "_" + generateRandomString(8);
+            this.menuCode = generateRandomString(8);
         }
         return Menu.builder()
                 .adminId(adminId)

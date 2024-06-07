@@ -4,10 +4,8 @@ import com.project.tableMaid.dto.sales.request.OrderMenuReqDto;
 import com.project.tableMaid.dto.sales.request.SalesMenuReqDto;
 import com.project.tableMaid.dto.sales.response.OrderMenuRespDto;
 import com.project.tableMaid.dto.sales.response.SalesMenuRespDto;
-import com.project.tableMaid.dto.sales.response.TotalSalesRespDto;
 import com.project.tableMaid.entity.sales.Order;
 import com.project.tableMaid.entity.sales.Sales;
-import com.project.tableMaid.entity.sales.TotalSales;
 import com.project.tableMaid.exception.DeleteException;
 import com.project.tableMaid.exception.SaveException;
 import com.project.tableMaid.repository.SalesMapper;
@@ -43,10 +41,10 @@ public class SalesService {
     }
 
     //총매출 GET
-    public List<TotalSalesRespDto> searchTotalSales () {
-        List<TotalSales> totalSales = salesMapper.findTotalSales();
+    public List<SalesMenuRespDto> searchTotalSales () {
+        List<Sales> sales = salesMapper.findTotalSales();
 
-        return totalSales.stream().map(TotalSales::toTotalSalesMenuRespDto).collect(Collectors.toList());
+        return sales.stream().map(Sales::toTotalSalesMenuRespDto).collect(Collectors.toList());
     }
 
     //판매 GET

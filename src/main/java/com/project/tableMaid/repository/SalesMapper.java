@@ -13,7 +13,7 @@ public interface SalesMapper {
     public int saveSales(List<Sales> sales);
     public int saveOrders(List<Order> orders);
     public List<TotalSales> findTotalSales();
-    public List<Sales> findSales();
+    public List<Sales> findSelectDaySales();
     public List<Order> findOrders();
     public int deleteSales(@Param("orderNumber") int orderNumber, @Param("adminId") int adminId);
     public int deleteOrder(@Param("orderNumber") int orderNumber, @Param("adminId") int adminId);

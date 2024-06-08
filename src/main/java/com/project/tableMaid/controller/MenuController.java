@@ -14,6 +14,15 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
+
+    @GetMapping("/list")
+    public ResponseEntity<?> getMenuListByAdminId(SearchMenuListReqDto searchMenuListReqDto) {
+        return ResponseEntity.ok(menuService.getMenuList(searchMenuListReqDto));
+    }
+    @GetMapping("/detail")
+    public ResponseEntity<?> getMenuDetailByAdminId(@RequestParam int adminId, int menuId) {
+        return ResponseEntity.ok(menuService.getMenuDetail(adminId, menuId));
+    }
     @GetMapping("/categories")
     public ResponseEntity<?> getCategoriesByAdminId(@RequestParam int adminId) {
 

@@ -4,15 +4,12 @@ import com.project.tableMaid.entity.menu.Menu;
 import com.project.tableMaid.entity.menu.MenuCategory;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class DeleteMenuReqDto {
     private int adminId;
-    private int menuId;
+    private List<Integer> menuIds;
 
-    public Menu toEntity() {
-        return Menu.builder()
-                .adminId(adminId)
-                .menuId(menuId)
-                .build();
-    }
+
 }

@@ -14,6 +14,16 @@ public interface MenuMapper {
     List<MenuCategory> getMenuCategoryByAdminId(@Param("adminId") int adminId);
     List<Menu> getMenuByAdminIdAndCategoryId(@Param("adminId") int adminId, @Param("menuCategoryId") int menuCategoryId);
     List<OptionName> getOptionsByMenuId(@Param("adminId") int adminId, @Param("menuId") int menuId);
+    List<OptionTitle> getOptionTitleByMenuId(@Param("adminId") int adminId, @Param("menuId") int menuId);
+    List<Menu> getMenuList(
+            @Param("adminId") int adminId,
+            @Param("menuName") String menuName,
+            @Param("menuCode") String menuCode,
+            @Param("menuState") int menuState,
+            @Param("recommendMenu") int recommendMenu,
+            @Param("categoryId") int categoryId
+    );
+    List<Menu> getMenuDetail(@Param("adminId") int adminId, @Param("menuId") int menuId);
     int saveMenu(Menu menu);
     int saveMenuCategory(MenuCategory menuCategory);
     int saveOptionTitle(OptionTitle optionTitle);
@@ -21,7 +31,7 @@ public interface MenuMapper {
     int updateMenuCategory(MenuCategory menuCategory);
     int deleteMenuCategory(MenuCategory menuCategory);
     int updateMenu(Menu menu);
-    int deleteMenu(Menu menu);
+    int deleteMenu(@Param("adminId") int adminId, List<Integer> menuIds);
     int updateOptionTitle(OptionTitle optionTitle);
     int updateOptionName(OptionName optionName);
     int deleteOptionTitle(OptionTitle optionTitle);

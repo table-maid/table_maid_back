@@ -1,6 +1,7 @@
 package com.project.tableMaid.controller;
 
 import com.project.tableMaid.aop.annotation.ParamsPrintAspect;
+import com.project.tableMaid.dto.sales.request.MenuTotalSalesReqDto;
 import com.project.tableMaid.dto.sales.request.OrderMenuReqDto;
 import com.project.tableMaid.dto.sales.request.SalesMenuReqDto;
 import com.project.tableMaid.entity.sales.Order;
@@ -35,8 +36,8 @@ public class SalesController {
     }
 
     @GetMapping("/menu/total")
-    public ResponseEntity<?> getMenuTotalSales() {
-        return ResponseEntity.ok().body(salesService.searchMenuTotalSales());
+    public ResponseEntity<?> getMenuTotalSales(MenuTotalSalesReqDto menuTotalSalesReqDto) {
+        return ResponseEntity.ok(salesService.searchMenuTotalSales(menuTotalSalesReqDto));
     }
 
     @DeleteMapping("/menu")

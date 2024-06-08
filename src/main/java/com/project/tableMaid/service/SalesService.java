@@ -2,6 +2,7 @@ package com.project.tableMaid.service;
 
 import com.project.tableMaid.dto.sales.request.OrderMenuReqDto;
 import com.project.tableMaid.dto.sales.request.SalesMenuReqDto;
+import com.project.tableMaid.dto.sales.request.MenuTotalSalesReqDto;
 import com.project.tableMaid.dto.sales.response.MenuTotalSalesRespDto;
 import com.project.tableMaid.dto.sales.response.OrderMenuRespDto;
 import com.project.tableMaid.dto.sales.response.SelectDateRespDto;
@@ -58,10 +59,21 @@ public class SalesService {
     }
 
     // 메뉴 총매출 GET
-    public List<MenuTotalSalesRespDto> searchMenuTotalSales () {
-        List<Sales> sales = salesMapper.findMenuTotalSales();
+    @Transactional(rollbackFor = Exception.class)
+    public List<MenuTotalSalesRespDto> searchMenuTotalSales (MenuTotalSalesReqDto menuTotalSalesReqDto) {
+        List<Sales> sales = salesMapper.findMenuTotalSales(
+                menuTotalSalesReqDto.getAdminId(),
+                menuTotalSalesReqDto.getMenuId(),
+                menuTotalSalesReqDto.getMenuName(),
+                menuTotalSalesReqDto.getYear(),
+                menuTotalSalesReqDto.getMonth(),
+                menuTotalSalesReqDto.getDay(),
+                menuTotalSalesReqDto.getCount(),
+                menuTotalSalesReqDto.getMenuTotalSales(),
+                menuTotalSalesReqDto.getMenuImgUrl()
+        );
 
-        return sales.stream().map(Sales::toTotalSalesRespDto).collect(Collectors.toList());
+        return sales.stream().map(Sales::toMenuTotalSalesRespDto).collect(Collectors.toList());
     }
 
     // 오더 POST

@@ -1,13 +1,12 @@
-package com.project.tableMaid.dto.sales.response;
+package com.project.tableMaid.dto.sales.request;
 
-import lombok.Builder;
+
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-@Builder
-public class MenuTotalSalesRespDto {
+public class MenuTotalSalesReqDto {
     private int adminId;
     private int menuId;
     private String menuName;

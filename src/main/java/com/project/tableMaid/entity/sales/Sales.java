@@ -26,6 +26,7 @@ public class Sales {
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
+
     public SelectDateRespDto toSalesMenuRespDto () {
         return SelectDateRespDto.builder()
                 .year(year)

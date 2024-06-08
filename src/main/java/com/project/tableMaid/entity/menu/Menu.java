@@ -38,7 +38,6 @@ public class Menu {
                 .adminId(adminId)
                 .menuId(menuId)
                 .menuCategoryId(menuCategoryId)
-                .menuCategoryName(menuCategory.getMenuCategoryName())
                 .menuName(menuName)
                 .menuCode(menuCode)
                 .menuPrice(menuPrice)

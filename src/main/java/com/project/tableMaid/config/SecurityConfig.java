@@ -2,6 +2,7 @@ package com.project.tableMaid.config;
 
 import com.project.tableMaid.security.exception.AuthEntryPoint;
 import com.project.tableMaid.security.filter.JwtAuthenticationFilter;
+import com.project.tableMaid.security.filter.MailSessionFilter;
 import com.project.tableMaid.security.filter.PermitAllFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,9 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private MailSessionFilter mailSessionFilter;
 
     @Autowired
     private PermitAllFilter permitAllFilter;
@@ -36,13 +40,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
         http.csrf().disable();
         http.authorizeHttpRequests()
-                .antMatchers("/server/**", "/admin/**", "/menu/**", "/sales/**", "/user/**", "/auth/**")
+                .antMatchers("/server/**", "/admin/**", "/menu/**", "/sales/**", "/user/**", "/auth/**", "/mail/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .addFilterAfter(permitAllFilter, LogoutFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(mailSessionFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
                 .authenticationEntryPoint(authEntryPoint);
     }

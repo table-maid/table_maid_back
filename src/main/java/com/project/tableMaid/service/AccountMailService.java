@@ -2,6 +2,7 @@ package com.project.tableMaid.service;
 
 import com.project.tableMaid.entity.account.Admin;
 import com.project.tableMaid.repository.AdminMapper;
+import com.project.tableMaid.util.RedisUtil;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,7 +11,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.mail.javamail.JavaMailSender;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.util.Random;
 
 @Service
 public class AccountMailService {
@@ -24,13 +27,66 @@ public class AccountMailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    @Autowired
+    private RedisUtil redisUtil;
+
     @Value("${spring.mail.address}")
     private String fromMailAddress;
     @Value("${server.port}")
     private String serverPort;
     @Value("${server.deploy-address}")
     private String serverAddress;
+    // 0~9 a~z 까지 숫자와 문자를 섞는 6자리 난수
+    private String createdCode() {
+        int leftLimit = 48; // number '0'
+        int rightLimit = 122; // alphabet 'z'
+        int targetStringLength = 6;
+        Random random = new Random();
 
+        return random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <=57 || i >=65) && (i <= 90 || i>= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+    }
+
+    // 본인계정 이메일 인증하기
+    public boolean sendAuthMail(String Email) {
+        boolean result = false;
+        String toMailAddress = Email;
+        String authCode = createdCode();
+
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+            helper.setSubject("[Table Maid] 계정 메일 인증");
+            helper.setFrom(fromMailAddress);
+            helper.setTo(toMailAddress);
+
+            StringBuilder mailContent = new StringBuilder();
+            mailContent.append("<div>");
+            mailContent.append("<h1>Table Maid</h1>");
+            mailContent.append("<div>");
+            mailContent.append("<h3>인증번호는 " + authCode + "입니다</h3>");
+            mailContent.append("</div>");
+            mailContent.append("</div>");
+
+            mimeMessage.setText(mailContent.toString(), "utf-8", "html");
+
+            javaMailSender.send(mimeMessage);   // 메일 전송
+
+            redisUtil.setDataExpire(toMailAddress, authCode, 60*5L);
+            result = true;
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        return result;
+
+    }
+
+
+    // 아이디 찾기
     public Admin searchAccountByNameAndEmail(String name, String email) {
         return adminMapper.findAccountByNameAndEmail(name, email);
     }
@@ -64,10 +120,10 @@ public class AccountMailService {
         return result;
     }
 
+    // 비밀번호 찾기
     public Admin searchAccountByUsernameAndEmail(String username, String email) {
         return adminMapper.findAccountByNameAndEmail(username, email);
     }
-
     public boolean sendTemporaryPassword(Admin admin) {
 
         boolean result = false;

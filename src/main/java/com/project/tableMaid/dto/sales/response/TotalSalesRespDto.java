@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public class TotalSalesRespDto {
     private int year;
     private int month;
+    private int day;
     private int totalSales;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;

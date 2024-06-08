@@ -9,5 +9,4 @@ public class TableMaidApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TableMaidApplication.class, args);
 	}
-
 }

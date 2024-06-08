@@ -4,6 +4,20 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.project.tableMaid.repository.MenuMapper">
+    <resultMap id="AdminResultMap" type="com.project.tableMaid.entity.account.Admin">
+        <id property="adminId" column="admin_id" />
+        <result property="adminName" column="admin_name" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="email" column="email" />
+        <result property="companyNumber" column="company_number" />
+        <result property="companyName" column="company_name" />
+        <result property="ownerName" column="owner_name" />
+        <result property="companyAddress" column="company_address" />
+        <result property="createDate" column="create_date" />
+        <result property="updateDate" column="update_date" />
+    </resultMap>
+
     <resultMap id="MenuResultMap" type="com.project.tableMaid.entity.menu.Menu">
         <id property="menuId" column="menu_id" />
         <result property="adminId" column="admin_id" />
@@ -17,6 +31,9 @@
         <result property="createDate" column="create_date" />
         <result property="updateDate" column="update_date" />
         <association property="menuCategory" resultMap="MenuCategoryResultMap"/>
+        <association property="admin" resultMap="AdminResultMap" />
+        <association property="optionTitle" resultMap="OptionTitleResultMap"/>
+        <association property="optionName" resultMap="OptionNameResultMap"/>
     </resultMap>
 
     <resultMap id="MenuCategoryResultMap" type="com.project.tableMaid.entity.menu.MenuCategory">
@@ -99,6 +116,65 @@
             admin_id = #{adminId} and
             menu_id = #{menuId}
     </select>
+    <select id="getMenuList" resultMap="MenuResultMap">
+        select
+            at.admin_id,
+            at.company_name,
+            mt.menu_id,
+            mt.menu_code,
+            mct.menu_category_name,
+            mt.menu_name,
+            mt.menu_price,
+            mt.menu_state,
+            mt.recommend_menu
+        from
+            menu_tb mt
+            left outer join admin_tb at on (at.admin_id = mt.admin_id)
+            left outer join menu_category_tb mct on (mct.menu_category_id = mt.menu_category_id)
+        where
+            at.admin_id = #{adminId}
+        <if test="menuName != null">
+            and mt.menu_name like CONCAT('%', #{menuName}, '%')
+        </if>
+        <if test="menuCode != null">
+            and mt.menu_code like CONCAT('%', #{menuCode}, '%')
+        </if>
+        <if test="menuState != 0">
+            and mt.menu_state = #{menuState}
+        </if>
+        <if test="recommendMenu != 0">
+            and mt.recommend_menu = #{recommendMenu}
+        </if>
+        <if test="categoryId != 0">
+            and mt.menu_category_id = #{categoryId}
+        </if>
+        order by
+            mt.menu_id;
+
+    </select>
+    <select id="getMenuDetail" resultMap="MenuResultMap">
+        select
+            mt.admin_id,
+            mt.menu_code,
+            mt.menu_name,
+            mt.menu_price,
+            mt.recommend_menu,
+            mt.menu_state,
+            mct.menu_category_id,
+            mct.menu_category_name,
+            ott.title_name,
+            ont.option_name,
+            ont.option_price,
+            mt.menu_img_url
+        from
+        menu_tb mt
+            left outer join menu_category_tb mct on (mct.menu_category_id = mt.menu_category_id)
+            left outer join option_title_tb ott on (ott.menu_id = mt.menu_id)
+            left outer join option_name_tb ont on (ont.option_title_id = ott.option_title_id)
+        where
+        mt.menu_id = #{menuId} and
+        mt.admin_id = #{adminId}
+    </select>
     <insert id="saveMenu" parameterType="com.project.tableMaid.entity.menu.Menu" >
         insert into
             menu_tb
@@ -165,9 +241,11 @@
     <delete id="deleteMenu">
         delete from
             menu_tb
-        where
-            admin_id = #{adminId}
-            and menu_id = #{menuId}
+            where
+        admin_id = #{adminId}
+        <foreach item="menuId" collection="menuIds" open="and menu_id in (" separator="," close=")">
+            #{menuId}
+        </foreach>
     </delete>
 
     <update id="updateOptionTitle">

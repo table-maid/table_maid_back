@@ -2,6 +2,7 @@ package com.project.tableMaid.service;
 
 import com.project.tableMaid.dto.sales.request.OrderMenuReqDto;
 import com.project.tableMaid.dto.sales.request.SalesMenuReqDto;
+import com.project.tableMaid.dto.sales.response.MenuTotalSalesRespDto;
 import com.project.tableMaid.dto.sales.response.OrderMenuRespDto;
 import com.project.tableMaid.dto.sales.response.SelectDateRespDto;
 import com.project.tableMaid.dto.sales.response.TotalSalesRespDto;
@@ -54,6 +55,13 @@ public class SalesService {
         List<Sales> sales = salesMapper.findSelectDaySales();
 
         return sales.stream().map(Sales::toSalesMenuRespDto).collect(Collectors.toList());
+    }
+
+    // 메뉴 총매출 GET
+    public List<MenuTotalSalesRespDto> searchMenuTotalSales () {
+        List<Sales> sales = salesMapper.findMenuTotalSales();
+
+        return sales.stream().map(Sales::toTotalSalesRespDto).collect(Collectors.toList());
     }
 
     // 오더 POST

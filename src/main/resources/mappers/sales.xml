@@ -8,6 +8,7 @@
     <resultMap id="salesResultMap" type="com.project.tableMaid.entity.sales.Sales">
         <id property="salesId" column="sales_id"/>
         <result property="adminId" column="admin_id"/>
+        <result property="menuId" column="menu_id"/>
         <result property="orderNumber" column="order_number"/>
         <result property="menuName" column="menu_name"/>
         <result property="year" column="year"/>
@@ -16,6 +17,7 @@
         <result property="count" column="count"/>
         <result property="menuTotalPrice" column="menu_total_price"/>
         <result property="dayTotalSales" column="day_total_sales"/>
+        <result property="menuTotalSales" column="menu_total_sales"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
     </resultMap>
@@ -97,6 +99,31 @@
             year ASC,
             month ASC,
             day ASC
+    </select>
+
+    <select
+            id="findMenuTotalSales"
+            resultMap="salesResultMap"
+    >
+        select
+            menu_id,
+            menu_name,
+            year,
+            month,
+            sum(count) as count,
+            sum(menu_total_price) as menu_total_sales,
+            min(create_date) as create_date,
+            max(update_date) as update_date
+        from
+            sales_tb
+        group by
+            menu_id,
+            menu_name,
+            year,
+            month
+        order by
+            year ASC,
+            month ASC;
     </select>
 
     <select

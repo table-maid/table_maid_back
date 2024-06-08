@@ -1,5 +1,6 @@
 package com.project.tableMaid.entity.sales;
 
+import com.project.tableMaid.dto.sales.response.MenuTotalSalesRespDto;
 import com.project.tableMaid.dto.sales.response.SelectDateRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 public class Sales {
     private int salesId;
     private int adminId;
+    private int menuId;
     private int orderNumber;
     private String menuName;
     private int year;
@@ -23,6 +25,7 @@ public class Sales {
     private int count;
     private int menuTotalPrice;
     private int dayTotalSales;
+    private int menuTotalSales;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
@@ -34,6 +37,19 @@ public class Sales {
                 .day(day)
                 .count(count)
                 .dayTotalSales(dayTotalSales)
+                .createDate(createDate)
+                .updateDate(updateDate)
+                .build();
+    }
+
+    public MenuTotalSalesRespDto toTotalSalesRespDto () {
+        return MenuTotalSalesRespDto.builder()
+                .menuId(menuId)
+                .menuName(menuName)
+                .year(year)
+                .month(month)
+                .count(count)
+                .menuTotalSales(menuTotalSales)
                 .createDate(createDate)
                 .updateDate(updateDate)
                 .build();

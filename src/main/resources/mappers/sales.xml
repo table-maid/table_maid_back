@@ -18,6 +18,7 @@
         <result property="menuTotalPrice" column="menu_total_price"/>
         <result property="dayTotalSales" column="day_total_sales"/>
         <result property="menuTotalSales" column="menu_total_sales"/>
+        <result property="menuImgUrl" column="menu_img_url"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
     </resultMap>
@@ -106,24 +107,36 @@
             resultMap="salesResultMap"
     >
         select
-            menu_id,
-            menu_name,
+            st.admin_id,
+            st.menu_id,
+            mt.menu_name,
             year,
             month,
-            sum(count) as count,
-            sum(menu_total_price) as menu_total_sales,
-            min(create_date) as create_date,
-            max(update_date) as update_date
+            day,
+            sum(st.count) as count,
+            sum(st.menu_total_price) as menu_total_sales,
+            mt.menu_img_url,
+            min(st.create_date) as create_date,
+            max(st.update_date) as update_date
         from
-            sales_tb
+            sales_tb st
+            left outer join admin_tb at on st.admin_id = at.admin_id
+            left outer join menu_tb mt on st.menu_id = mt.menu_id
+        where
+            st.menu_id is not null and
+            st.menu_id != 0
         group by
-            menu_id,
-            menu_name,
+            st.admin_id,
+            st.menu_id,
+            mt.menu_name,
             year,
-            month
+            month,
+            day,
+            mt.menu_img_url
         order by
             year ASC,
-            month ASC;
+            month ASC,
+            day ASC
     </select>
 
     <select

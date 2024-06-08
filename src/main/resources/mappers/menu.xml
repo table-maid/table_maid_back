@@ -40,6 +40,7 @@
         <result property="adminId" column="admin_id" />
         <result property="menuId" column="menu_id" />
         <result property="optionName" column="option_name" />
+        <result property="optionPrice" column="option_price" />
         <result property="createDate" column="create_date" />
         <result property="updateDate" column="update_date" />
         <association property="optionTitle" resultMap="OptionTitleResultMap" />

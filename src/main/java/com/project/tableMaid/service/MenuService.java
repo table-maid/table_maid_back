@@ -4,12 +4,10 @@ import com.project.tableMaid.aop.annotation.ParamsPrintAspect;
 import com.project.tableMaid.dto.menu.request.*;
 import com.project.tableMaid.dto.menu.response.CategoriesRespDto;
 import com.project.tableMaid.dto.menu.response.MenusRespDto;
-import com.project.tableMaid.dto.menu.response.OptionTitlesRespDto;
 import com.project.tableMaid.dto.menu.response.OptionsRespDto;
 import com.project.tableMaid.entity.menu.Menu;
 import com.project.tableMaid.entity.menu.MenuCategory;
 import com.project.tableMaid.entity.menu.OptionName;
-import com.project.tableMaid.entity.menu.OptionTitle;
 import com.project.tableMaid.repository.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +17,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class MenuService {
@@ -44,7 +41,6 @@ public class MenuService {
         for (Menu menu : menus) {
             menuRespDtoList.add(menu.toMenuRespDto());
         }
-        System.out.println(menuRespDtoList);
         return menuRespDtoList;
     }
     // 메뉴 별 옵션 조회
@@ -72,25 +68,7 @@ public class MenuService {
             optionsRespDto.getOptionNames().add(optionName.getOptionName());
             optionsRespDto.getOptionPrices().add(optionName.getOptionPrice());
         }
-        System.out.println(options);
         return new ArrayList<>(optionsMap.values());
-    }
-    // 옵션 타이틀 조회
-    @Transactional(rollbackFor = Exception.class)
-    public OptionTitlesRespDto getOptionTitle(int adminId, int menuId) {
-        List<OptionTitle> optionTitles = menuMapper.getOptionTitleByMenuId(adminId, menuId);
-        List<Integer> optionTitlesId = optionTitles.stream()
-                .map(OptionTitle::getOptionTitleId)
-                .collect(Collectors.toList());
-
-        List<String> optionTitleNames = optionTitles.stream()
-                .map(OptionTitle::getTitleName)
-                .collect(Collectors.toList());
-
-        return OptionTitlesRespDto.builder()
-                .optionTitlesId(optionTitlesId)
-                .optionTitleNames(optionTitleNames)
-                .build();
     }
 
     public void insertMenu(RegisterMenuReqDto registerMenuReqDto) {

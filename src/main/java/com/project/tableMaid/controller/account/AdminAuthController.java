@@ -1,6 +1,5 @@
 package com.project.tableMaid.controller.account;
 
-import com.project.tableMaid.aop.annotation.ParamsPrintAspect;
 import com.project.tableMaid.aop.annotation.ValidAspect;
 import com.project.tableMaid.dto.account.request.AdminSignupReqDto;
 import com.project.tableMaid.service.AdminAuthService;
@@ -21,11 +20,12 @@ public class AdminAuthController {
     @Autowired
     AdminAuthService adminAuthService;
 
-    @ParamsPrintAspect
     @ValidAspect
     @PostMapping("/signup")
     public ResponseEntity<?> adminSignup(@Valid @RequestBody AdminSignupReqDto adminSignupReqDto, BindingResult bindingResult) {
+        System.out.println("컨트롤러 진입");
         adminAuthService.adminSignup(adminSignupReqDto);
+        System.out.println("컨트롤러 진입 끝");
         return ResponseEntity.created(null).body(true);
     }
 

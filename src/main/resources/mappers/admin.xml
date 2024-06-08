@@ -119,7 +119,7 @@
         select
             *
         from
-            admin_tb;
+            admin_tb
         update
             admin_tb
         set

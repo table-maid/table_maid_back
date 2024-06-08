@@ -3,7 +3,8 @@ package com.project.tableMaid.service;
 import com.project.tableMaid.dto.sales.request.OrderMenuReqDto;
 import com.project.tableMaid.dto.sales.request.SalesMenuReqDto;
 import com.project.tableMaid.dto.sales.response.OrderMenuRespDto;
-import com.project.tableMaid.dto.sales.response.SalesMenuRespDto;
+import com.project.tableMaid.dto.sales.response.SelectDateRespDto;
+import com.project.tableMaid.dto.sales.response.TotalSalesRespDto;
 import com.project.tableMaid.entity.sales.Order;
 import com.project.tableMaid.entity.sales.Sales;
 import com.project.tableMaid.exception.DeleteException;
@@ -47,9 +48,9 @@ public class SalesService {
         return sales.stream().map(Sales::toTotalSalesMenuRespDto).collect(Collectors.toList());
     }
 
-    //판매 GET
-    public List<SalesMenuRespDto> selectSales () {
-        List<Sales> sales = salesMapper.findSales();
+    //일매출 GET
+    public List<SelectDateRespDto> selectSales () {
+        List<Sales> sales = salesMapper.findSelectDaySales();
 
         return sales.stream().map(Sales::toSalesMenuRespDto).collect(Collectors.toList());
     }

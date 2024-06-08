@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 public class TotalSales {
     private int year;
     private int month;
-    private int day;
     private int totalSales;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
@@ -24,7 +23,6 @@ public class TotalSales {
         return TotalSalesRespDto.builder()
                 .year(year)
                 .month(month)
-                .day(day)
                 .totalSales(totalSales)
                 .createDate(createDate)
                 .updateDate(updateDate)

@@ -15,6 +15,13 @@
         <result property="day" column="day"/>
         <result property="count" column="count"/>
         <result property="menuTotalPrice" column="menu_total_price"/>
+        <result property="dayTotalSales" column="day_total_sales"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+    <resultMap id="totalSalesResultMap" type="com.project.tableMaid.entity.sales.TotalSales">
+        <result property="year" column="year"/>
+        <result property="month" column="month"/>
         <result property="totalSales" column="total_sales"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
@@ -55,7 +62,6 @@
         select
             year,
             month,
-            day,
             sum(menu_total_price) as total_sales,
             create_date,
             update_date
@@ -67,27 +73,37 @@
             day
         order by
             year ASC,
-            month ASC,
-            day ASC;
+            month ASC
     </select>
 
     <select
-        id="findSales"
+        id="findSelectDaySales"
         resultMap="salesResultMap"
     >
         select
+<<<<<<< HEAD
             sales_id,
             admin_id,
             menu_name,
+=======
+>>>>>>> origin/74--매출-조회-수정
             year,
             month,
             day,
-            count,
-            menu_total_price,
+            sum(menu_total_price) as day_total_sales,
+            sum(count) as count,
             create_date,
             update_date
         from
             sales_tb
+        group by
+            year,
+            month,
+            day
+        order by
+            year ASC,
+            month ASC,
+            day ASC
     </select>
 
     <select

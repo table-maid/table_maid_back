@@ -24,12 +24,12 @@ public class SalesController {
         return ResponseEntity.created(null).body(true);
     }
 
-    @GetMapping("/menu")
+    @GetMapping("/total")
     public ResponseEntity<?> getSales() {
         return ResponseEntity.ok().body(salesService.searchTotalSales());
     }
 
-    @GetMapping("/menu/select")
+    @GetMapping("/total/select")
     public ResponseEntity<?> getSelectSales() {
         return ResponseEntity.ok().body(salesService.selectSales());
     }

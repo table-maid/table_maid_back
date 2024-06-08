@@ -22,8 +22,8 @@ public class PermitAllFilter extends GenericFilter {
                 "/error",
                 "/sales",
                 "/menu",
-                "/user"
-
+                "/user",
+                "/mail"
         );
 
         String uri = request.getRequestURI();

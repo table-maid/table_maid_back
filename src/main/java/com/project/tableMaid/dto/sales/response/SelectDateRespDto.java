@@ -7,16 +7,12 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class SalesMenuRespDto {
-    private int adminId;
-    private int orderNumber;
-    private String menuName;
+public class SelectDateRespDto {
     private int year;
     private int month;
     private int day;
     private int count;
-    private int menuTotalPrice;
-    private int totalSales;
+    private int dayTotalSales;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 }

@@ -24,7 +24,6 @@ public class TotalSales {
         return TotalSalesRespDto.builder()
                 .year(year)
                 .month(month)
-                .day(day)
                 .totalSales(totalSales)
                 .createDate(createDate)
                 .updateDate(updateDate)

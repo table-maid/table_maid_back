@@ -45,33 +45,23 @@ public class SalesService {
     }
 
     //총매출 GET
-    public List<TotalSalesRespDto> searchTotalSales () {
-        List<TotalSales> totalSales = salesMapper.findTotalSales();
+    public List<TotalSalesRespDto> searchTotalSales (int adminId) {
+        List<TotalSales> totalSales = salesMapper.findTotalSales(adminId);
 
         return totalSales.stream().map(TotalSales::toTotalSalesMenuRespDto).collect(Collectors.toList());
     }
 
     //일매출 GET
-    public List<SelectDateRespDto> selectSales () {
-        List<Sales> sales = salesMapper.findSelectDaySales();
+    public List<SelectDateRespDto> selectSales (int adminId) {
+        List<Sales> sales = salesMapper.findSelectDaySales(adminId);
 
         return sales.stream().map(Sales::toSalesMenuRespDto).collect(Collectors.toList());
     }
 
     // 메뉴 총매출 GET
     @Transactional(rollbackFor = Exception.class)
-    public List<MenuTotalSalesRespDto> searchMenuTotalSales (MenuTotalSalesReqDto menuTotalSalesReqDto) {
-        List<Sales> sales = salesMapper.findMenuTotalSales(
-                menuTotalSalesReqDto.getAdminId(),
-                menuTotalSalesReqDto.getMenuId(),
-                menuTotalSalesReqDto.getMenuName(),
-                menuTotalSalesReqDto.getYear(),
-                menuTotalSalesReqDto.getMonth(),
-                menuTotalSalesReqDto.getDay(),
-                menuTotalSalesReqDto.getCount(),
-                menuTotalSalesReqDto.getMenuTotalSales(),
-                menuTotalSalesReqDto.getMenuImgUrl()
-        );
+    public List<MenuTotalSalesRespDto> searchMenuTotalSales (int adminId, int menuId) {
+        List<Sales> sales = salesMapper.findMenuTotalSales(adminId,menuId);
 
         return sales.stream().map(Sales::toMenuTotalSalesRespDto).collect(Collectors.toList());
     }

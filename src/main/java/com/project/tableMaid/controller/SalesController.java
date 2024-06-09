@@ -26,18 +26,18 @@ public class SalesController {
     }
 
     @GetMapping("/total")
-    public ResponseEntity<?> getSales() {
-        return ResponseEntity.ok().body(salesService.searchTotalSales());
+    public ResponseEntity<?> getSales(@RequestParam int adminId) {
+        return ResponseEntity.ok().body(salesService.searchTotalSales(adminId));
     }
 
     @GetMapping("/total/select")
-    public ResponseEntity<?> getSelectSales() {
-        return ResponseEntity.ok().body(salesService.selectSales());
+    public ResponseEntity<?> getSelectSales(@RequestParam int adminId) {
+        return ResponseEntity.ok().body(salesService.selectSales(adminId));
     }
 
     @GetMapping("/menu/total")
-    public ResponseEntity<?> getMenuTotalSales(MenuTotalSalesReqDto menuTotalSalesReqDto) {
-        return ResponseEntity.ok(salesService.searchMenuTotalSales(menuTotalSalesReqDto));
+    public ResponseEntity<?> getMenuTotalSales(@RequestParam int adminId, int menuId) {
+        return ResponseEntity.ok(salesService.searchMenuTotalSales(adminId, menuId));
     }
 
     @DeleteMapping("/menu")

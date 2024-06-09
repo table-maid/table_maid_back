@@ -23,6 +23,7 @@
         <result property="updateDate" column="update_date"/>
     </resultMap>
     <resultMap id="totalSalesResultMap" type="com.project.tableMaid.entity.sales.TotalSales">
+        <result property="adminId" column="admin_id"/>
         <result property="year" column="year"/>
         <result property="month" column="month"/>
         <result property="totalSales" column="total_sales"/>
@@ -63,13 +64,17 @@
         resultMap="totalSalesResultMap"
     >
         select
+            at.admin_id,
             year,
             month,
             sum(menu_total_price) as total_sales,
-            create_date,
-            update_date
+            st.create_date,
+            st.update_date
         from
-            sales_tb
+            sales_tb st
+            left outer join admin_tb at on (at.admin_id = st.admin_id)
+        where
+            st.admin_id = #{adminId}
         group by
             year,
             month
@@ -83,15 +88,20 @@
         resultMap="salesResultMap"
     >
         select
+            at.admin_id,
             year,
             month,
             day,
             sum(menu_total_price) as day_total_sales,
             sum(count) as count,
-            create_date,
-            update_date
+            min(st.create_date) as create_date,
+            max(st.update_date) as update_date
         from
-            sales_tb
+            sales_tb st
+            left outer join admin_tb at on (at.admin_id = st.admin_id)
+
+        where
+            st.admin_id = #{adminId}
         group by
             year,
             month,
@@ -120,9 +130,11 @@
             max(st.update_date) as update_date
         from
             sales_tb st
-            left outer join admin_tb at on st.admin_id = at.admin_id
-            left outer join menu_tb mt on st.menu_id = mt.menu_id
+            left outer join admin_tb at on at.admin_id = st.admin_id
+            left outer join menu_tb mt on mt.menu_id = st.menu_id
         where
+            st.admin_id = #{adminId} and
+            st.menu_id = #{menuId} and
             st.menu_id is not null and
             st.menu_id != 0
         group by

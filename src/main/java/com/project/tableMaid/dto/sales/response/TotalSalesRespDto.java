@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class TotalSalesRespDto {
+    private int adminId;
     private int year;
     private int month;
     private int totalSales;

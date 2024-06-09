@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class TotalSales {
+    private int adminId;
     private int year;
     private int month;
     private int day;
@@ -22,6 +23,7 @@ public class TotalSales {
 
     public TotalSalesRespDto toTotalSalesMenuRespDto () {
         return TotalSalesRespDto.builder()
+                .adminId(adminId)
                 .year(year)
                 .month(month)
                 .totalSales(totalSales)

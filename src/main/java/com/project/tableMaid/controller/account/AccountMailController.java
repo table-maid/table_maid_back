@@ -9,6 +9,7 @@ import com.project.tableMaid.service.AccountMailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +31,6 @@ public class AccountMailController {
         return ResponseEntity.ok(accountMailService.sendAuthMail(email));
     }
 
-    @ParamsPrintAspect
     @PostMapping("/verify/authenticate")
     public ResponseEntity<?> verifyAuthCode(@RequestBody verifyAuthCodeReqDto verifyAuthCodeReqDto) {
         Map<String, String> resultMap = accountMailService.verifyEmailCode(verifyAuthCodeReqDto.getEmail(), verifyAuthCodeReqDto.getAuthCode());
@@ -45,10 +45,15 @@ public class AccountMailController {
     }
 
 
+    @ParamsPrintAspect
     @PostMapping("/send/id")
     public ResponseEntity<?> send(HttpServletRequest request, @RequestBody AdminSearchAdminNameReqDto adminSearchAdminNameReqDto) {
         request.getSession().setAttribute("timer", new Date());
         Admin admin = accountMailService.searchAccountByNameAndEmail(adminSearchAdminNameReqDto.getAdminName(), adminSearchAdminNameReqDto.getEmail());
+        if(admin == null){
+            System.out.println("Admin is null, throwing UsernameNotFoundException");
+            throw new UsernameNotFoundException("일치하는 회원정보가 없습니다.");
+        }
         accountMailService.searchAccountByMail(admin);
 
         return ResponseEntity.status(HttpStatus.OK).body(null);

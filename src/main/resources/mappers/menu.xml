@@ -88,7 +88,9 @@
             menu_tb
         where
             admin_id = #{adminId}
+            <if test="menuCategoryId != 0" >
             and menu_category_id = #{menuCategoryId}
+            </if>
     </select>
 
     <select id="getOptionsByMenuId" resultMap="OptionNameResultMap">
@@ -145,11 +147,13 @@
         <if test="recommendMenu != 0">
             and mt.recommend_menu = #{recommendMenu}
         </if>
-        <if test="categoryId != 0">
-            and mt.menu_category_id = #{categoryId}
+        <if test="menuCategoryId != 0">
+            and mt.menu_category_id = #{menuCategoryId}
         </if>
         order by
-            mt.menu_id;
+
+            mt.menu_category_id;
+
 
     </select>
     <select id="getMenuDetail" resultMap="MenuResultMap">
@@ -164,16 +168,18 @@
             mct.menu_category_name,
             ott.title_name,
             ont.option_name,
+            ott.option_title_id,
+            ont.option_name_id,
             ont.option_price,
             mt.menu_img_url
         from
-        menu_tb mt
+            menu_tb mt
             left outer join menu_category_tb mct on (mct.menu_category_id = mt.menu_category_id)
             left outer join option_title_tb ott on (ott.menu_id = mt.menu_id)
             left outer join option_name_tb ont on (ont.option_title_id = ott.option_title_id)
         where
-        mt.menu_id = #{menuId} and
-        mt.admin_id = #{adminId}
+            mt.menu_id = #{menuId} and
+            mt.admin_id = #{adminId}
     </select>
     <insert id="saveMenu" parameterType="com.project.tableMaid.entity.menu.Menu" >
         insert into
@@ -200,7 +206,7 @@
         insert into
             option_name_tb
         values
-            (0, #{adminId}, #{menuId}, #{titleId}, #{optionName}, now(), now())
+            (0, #{adminId}, #{menuId}, #{titleId}, #{optionName}, #{optionPrice}, now(), now())
     </insert>
     
     <update id="updateMenuCategory">
@@ -254,41 +260,40 @@
             option_title_tb
         set
             menu_id = #{menuId},
-            title_name = #{titleName}
+            title_name = #{titleName},
             update_date = now()
         where
             option_title_id = #{optionTitleId}
             and admin_id = #{adminId}
     </update>
-
     <update id="updateOptionName">
         update
             option_name_tb
         set
-            menu_id = #{menuId},
-            option_name = #{optionName}
-            title_id = #{titleId}
+            option_name = #{optionName},
+            option_price = #{optionPrice},
             update_date = now()
         where
             option_name_id = #{optionNameId}
             and admin_id = #{adminId}
-            and title_id = #{titleId}
+            and option_title_id = #{titleId}
+            and menu_id = #{menuId}
     </update>
-
     <delete id="deleteOptionTitle">
-        delete from
-            option_title_tb
+        delete
+            from option_title_tb
         where
             option_title_id = #{optionTitleId}
             and admin_id = #{adminId}
     </delete>
 
     <delete id="deleteOptionName">
-        delete from
-            option_name_tb
+        delete
+            from option_name_tb
         where
+            admin_id = #{adminId} and
             option_name_id = #{optionNameId}
-            and admin_id = #{adminId}
+
     </delete>
 
 </mapper>

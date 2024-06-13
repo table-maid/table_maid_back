@@ -14,6 +14,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class MenuDetailRespDto {
     private int adminId;
+    private int menuId;
     private int menuCategoryId;
     private String menuCategoryName;
     private String menuCode;
@@ -22,5 +23,18 @@ public class MenuDetailRespDto {
     private String menuImgUrl;
     private int recommendMenu;
     private int menuState;
-    private Map<String, Map<String, Integer>> titleOptionMap;  // 변경된 부분
+    private List<OptionDetail> optionList;
+
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class OptionDetail {
+        private int optionTitleId;
+        private String optionTitleName;
+        private List<Integer> optionNameIds;
+        private List<String> optionNames;
+        private List<Integer> optionPrices;
+    }
 }

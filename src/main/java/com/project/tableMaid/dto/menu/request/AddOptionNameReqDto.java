@@ -10,6 +10,7 @@ public class AddOptionNameReqDto {
     private int menuId;
     private int titleId;
     private String optionName;
+    private int optionPrice;
 
     public OptionName toEntity() {
         return OptionName.builder()
@@ -17,6 +18,7 @@ public class AddOptionNameReqDto {
                 .menuId(menuId)
                 .titleId(titleId)
                 .optionName(optionName)
+                .optionPrice(optionPrice)
                 .build();
     }
 }

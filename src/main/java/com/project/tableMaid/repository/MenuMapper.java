@@ -21,7 +21,7 @@ public interface MenuMapper {
             @Param("menuCode") String menuCode,
             @Param("menuState") int menuState,
             @Param("recommendMenu") int recommendMenu,
-            @Param("categoryId") int categoryId
+            @Param("menuCategoryId") int menuCategoryId
     );
     List<Menu> getMenuDetail(@Param("adminId") int adminId, @Param("menuId") int menuId);
     int saveMenu(Menu menu);

@@ -1,17 +1,16 @@
 package com.project.tableMaid.service;
 
-import com.project.tableMaid.aop.annotation.ParamsPrintAspect;
 import com.project.tableMaid.dto.menu.request.*;
 import com.project.tableMaid.dto.menu.response.*;
 import com.project.tableMaid.entity.menu.Menu;
 import com.project.tableMaid.entity.menu.MenuCategory;
 import com.project.tableMaid.entity.menu.OptionName;
+import com.project.tableMaid.entity.menu.OptionTitle;
 import com.project.tableMaid.repository.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class MenuService {
@@ -28,7 +27,7 @@ public class MenuService {
                 searchMenuListReqDto.getMenuCode(),
                 searchMenuListReqDto.getMenuState(),
                 searchMenuListReqDto.getRecommendMenu(),
-                searchMenuListReqDto.getCategoryId()
+                searchMenuListReqDto.getMenuCategoryId()
         );
         List<MenuListRespDto> menuListRespDto = new ArrayList<>();
         for (Menu menu : menuList) {
@@ -40,28 +39,40 @@ public class MenuService {
     @Transactional(rollbackFor = Exception.class)
     public List<MenuDetailRespDto> getMenuDetail(int adminId, int menuId) {
         List<Menu> menuDetail = menuMapper.getMenuDetail(adminId, menuId);
-        System.out.println(menuDetail);
         List<MenuDetailRespDto> menuDetailRespDtoList = new ArrayList<>();
-
         Set<String> uniqueMenuCodes = new HashSet<>();
 
         for (Menu menu : menuDetail) {
             if (!uniqueMenuCodes.contains(menu.getMenuCode())) {
                 uniqueMenuCodes.add(menu.getMenuCode());
 
-                Map<String, Map<String, Integer>> titleOptionMap = new HashMap<>();
+                Map<Integer, MenuDetailRespDto.OptionDetail> optionMap = new HashMap<>();
 
                 menuDetail.stream()
                         .filter(m -> m.getMenuCode().equals(menu.getMenuCode()))
                         .forEach(m -> {
-                            String titleName = m.getOptionTitle().getTitleName();
-                            String optionName = m.getOptionName().getOptionName();
-                            Integer optionPrice = m.getOptionName().getOptionPrice();
-                            titleOptionMap.computeIfAbsent(titleName, k -> new HashMap<>()).put(optionName, optionPrice);
+                            if (m.getOptionTitle() != null) {
+                                int optionTitleId = m.getOptionTitle().getOptionTitleId();
+                                MenuDetailRespDto.OptionDetail optionDetail = optionMap.getOrDefault(optionTitleId, MenuDetailRespDto.OptionDetail.builder()
+                                        .optionTitleId(optionTitleId)
+                                        .optionTitleName(m.getOptionTitle().getTitleName())
+                                        .optionNameIds(new ArrayList<>())
+                                        .optionNames(new ArrayList<>())
+                                        .optionPrices(new ArrayList<>())
+                                        .build());
+
+                                if (m.getOptionName() != null) {
+                                    optionDetail.getOptionNameIds().add(m.getOptionName().getOptionNameId());
+                                    optionDetail.getOptionNames().add(m.getOptionName().getOptionName());
+                                    optionDetail.getOptionPrices().add(m.getOptionName().getOptionPrice());
+                                }
+                                optionMap.put(optionTitleId, optionDetail);
+                            }
                         });
 
                 MenuDetailRespDto dto = MenuDetailRespDto.builder()
                         .adminId(menu.getAdminId())
+                        .menuId(menuId)
                         .menuCode(menu.getMenuCode())
                         .menuName(menu.getMenuName())
                         .menuPrice(menu.getMenuPrice())
@@ -70,13 +81,13 @@ public class MenuService {
                         .menuState(menu.getMenuState())
                         .menuCategoryId(menu.getMenuCategory().getMenuCategoryId())
                         .menuCategoryName(menu.getMenuCategory().getMenuCategoryName())
-                        .titleOptionMap(titleOptionMap)
+                        .optionList(new ArrayList<>(optionMap.values()))
                         .build();
 
                 menuDetailRespDtoList.add(dto);
             }
         }
-
+        System.out.println(menuDetailRespDtoList);
         return menuDetailRespDtoList;
     }
     //카테고리 조회
@@ -129,14 +140,39 @@ public class MenuService {
         return new ArrayList<>(optionsMap.values());
     }
 
+    // 메뉴 옵션 타이틀 조회
+    @Transactional(rollbackFor = Exception.class)
+    public OptionTitlesRespDto getOptionTitles(int adminId, int menuId) {
+        List<OptionTitle> optionTitles = menuMapper.getOptionTitleByMenuId(adminId, menuId);
+        OptionTitlesRespDto optionTitlesRespDto = new OptionTitlesRespDto();
+
+        List<Integer> optionTitleIds = new ArrayList<>();
+        List<String> optionTitleNames = new ArrayList<>();
+
+        for (OptionTitle optionTitle : optionTitles) {
+            optionTitleIds.add(optionTitle.getOptionTitleId());
+            optionTitleNames.add(optionTitle.getTitleName());
+        }
+
+        optionTitlesRespDto.setOptionTitlesId(optionTitleIds);
+        optionTitlesRespDto.setOptionTitleNames(optionTitleNames);
+
+        return optionTitlesRespDto;
+    }
+
+
     public void insertMenu(RegisterMenuReqDto registerMenuReqDto) {
         menuMapper.saveMenu(registerMenuReqDto.toEntity());
     }
 
+    // 옵션 업데이트
+    @Transactional
     public void editMenu(UpdateMenuReqDto updateMenuReqDto) {
-        menuMapper.updateMenu(updateMenuReqDto.toEntity());
+        Menu menu = updateMenuReqDto.toEntity();
+        menuMapper.updateMenu(menu);
     }
 
+    // 메뉴 삭제
     @Transactional(rollbackFor = Exception.class)
     public void deleteMenu(DeleteMenuReqDto deleteMenuReqDto) {
         menuMapper.deleteMenu(deleteMenuReqDto.getAdminId(), deleteMenuReqDto.getMenuIds());
@@ -162,10 +198,6 @@ public class MenuService {
         menuMapper.updateOptionTitle(updateOptionTitleReqDto.toEntity());
     }
 
-    public void deleteOptionTitle(DeleteOptionTitleReqDto deleteOptionTitleReqDto) {
-        menuMapper.deleteOptionTitle(deleteOptionTitleReqDto.toEntity());
-    }
-
     public void insertOptionName(AddOptionNameReqDto addOptionNameReqDto) {
         menuMapper.saveOptionName(addOptionNameReqDto.toEntity());
     }
@@ -174,8 +206,15 @@ public class MenuService {
         menuMapper.updateOptionName(updateOptionNameReqDto.toEntity());
     }
 
+    // 옵션 타이틀 삭제
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteOptionTitle(DeleteOptionTitleReqDto deleteOptionTitleReqDto) {
+        menuMapper.deleteOptionTitle(deleteOptionTitleReqDto.toEntity());
+    }
+
+    // 옵션 삭제
+    @Transactional(rollbackFor = Exception.class)
     public void deleteOptionName(DeleteOptionNameReqDto deleteOptionNameReqDto) {
         menuMapper.deleteOptionName(deleteOptionNameReqDto.toEntity());
     }
-
 }

@@ -9,5 +9,5 @@ public class SearchMenuListReqDto {
     private String menuCode;
     private int menuState;
     private int recommendMenu;
-    private int categoryId;
+    private int menuCategoryId;
 }

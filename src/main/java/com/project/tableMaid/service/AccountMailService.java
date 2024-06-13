@@ -13,6 +13,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 @Service
@@ -50,6 +52,7 @@ public class AccountMailService {
                 .toString();
     }
 
+
     // 본인계정 이메일 인증하기
     public boolean sendAuthMail(String Email) {
         boolean result = false;
@@ -75,14 +78,25 @@ public class AccountMailService {
 
             javaMailSender.send(mimeMessage);   // 메일 전송
 
-            redisUtil.setDataExpire(toMailAddress, authCode, 60*5L);
+            redisUtil.setDataExpire(toMailAddress, authCode, 60*3L);
             result = true;
 
         } catch (MessagingException e) {
             e.printStackTrace();
         }
         return result;
+    }
 
+    // 메일 인증 코드 확인
+    public Map<String, String> verifyEmailCode(String email, String code) {
+        String authCode = redisUtil.getData(email);
+        if (authCode != null && Objects.equals(authCode, code)) {
+            return Map.of("status", "success", "message", "이메일 인증에 성공하였습니다.");
+        }
+        if (authCode == null) {
+            return Map.of("status", "fail", "message", "인증 시간을 초과하였습니다.");
+        }
+        return Map.of("status", "fail", "message", "인증번호가 일치하지 않습니다.");
     }
 
 

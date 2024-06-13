@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-    @RequestMapping("/admin/auth")
+@RequestMapping("/admin/auth")
 public class AdminAuthController {
 
     @Autowired

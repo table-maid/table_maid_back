@@ -3,6 +3,7 @@ package com.project.tableMaid.controller.account;
 import com.project.tableMaid.aop.annotation.ParamsPrintAspect;
 import com.project.tableMaid.dto.account.request.AdminFindPasswordReqDto;
 import com.project.tableMaid.dto.account.request.AdminSearchAdminNameReqDto;
+import com.project.tableMaid.dto.account.request.verifyAuthCodeReqDto;
 import com.project.tableMaid.entity.account.Admin;
 import com.project.tableMaid.service.AccountMailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/mail")
@@ -21,13 +23,25 @@ public class AccountMailController {
     @Autowired
     AccountMailService accountMailService;
 
-    @ParamsPrintAspect
     @PostMapping("/{email}/send/authenticate")
     @ResponseBody
     public ResponseEntity<?> sendAuthenticate(HttpServletRequest request, @PathVariable String email) {
         request.getSession().setAttribute("timer", new Date());
-        System.out.println("sendAuth");
         return ResponseEntity.ok(accountMailService.sendAuthMail(email));
+    }
+
+    @ParamsPrintAspect
+    @PostMapping("/verify/authenticate")
+    public ResponseEntity<?> verifyAuthCode(@RequestBody verifyAuthCodeReqDto verifyAuthCodeReqDto) {
+        Map<String, String> resultMap = accountMailService.verifyEmailCode(verifyAuthCodeReqDto.getEmail(), verifyAuthCodeReqDto.getAuthCode());
+        String status = resultMap.get("status");
+        String message = resultMap.get("message");
+
+        if("success".equals(status)) {
+            return ResponseEntity.ok(message);
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+        }
     }
 
 

@@ -1,7 +1,12 @@
 package com.project.tableMaid.dto.menu.request;
 
 import com.project.tableMaid.entity.menu.Menu;
+import com.project.tableMaid.entity.menu.OptionName;
 import lombok.Data;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Data
 public class UpdateMenuReqDto {
@@ -26,4 +31,5 @@ public class UpdateMenuReqDto {
                 .menuCategoryId(menuCategoryId)
                 .build();
     }
+
 }

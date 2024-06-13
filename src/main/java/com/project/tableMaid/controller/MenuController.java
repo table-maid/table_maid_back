@@ -1,6 +1,5 @@
 package com.project.tableMaid.controller;
 
-import com.project.tableMaid.aop.annotation.ParamsPrintAspect;
 import com.project.tableMaid.dto.menu.request.*;
 import com.project.tableMaid.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ public class MenuController {
 
     @GetMapping("/list")
     public ResponseEntity<?> getMenuListByAdminId(SearchMenuListReqDto searchMenuListReqDto) {
+        System.out.println(searchMenuListReqDto);
         return ResponseEntity.ok(menuService.getMenuList(searchMenuListReqDto));
     }
     @GetMapping("/detail")
@@ -46,6 +46,7 @@ public class MenuController {
 
     @PutMapping("/menus")
     public ResponseEntity<?> updateMenu(@RequestBody UpdateMenuReqDto updateMenuReqDto) {
+        System.out.println(updateMenuReqDto);
         menuService.editMenu(updateMenuReqDto);
         return ResponseEntity.ok(true);
     }
@@ -79,6 +80,11 @@ public class MenuController {
         menuService.insertOptionTitle(addOptionTitleReqDto);
         return ResponseEntity.created(null).body(true);
     }
+    @GetMapping("/option/title")
+    public ResponseEntity<?> getOptionTitles(@RequestParam int adminId, int menuId) {
+        menuService.getOptionTitles(adminId, menuId);
+        return ResponseEntity.ok(menuService.getOptionTitles(adminId, menuId));
+    }
 
     @PutMapping("/option/title")
     public ResponseEntity<?> updateOptionTitle(@RequestBody UpdateOptionTitleReqDto updateOptionTitleReqDto) {
@@ -88,18 +94,21 @@ public class MenuController {
 
     @DeleteMapping("/option/title")
     public ResponseEntity<?> deleteOptionTitle(@RequestBody DeleteOptionTitleReqDto deleteOptionTitleReqDto) {
+        System.out.println(deleteOptionTitleReqDto);
         menuService.deleteOptionTitle(deleteOptionTitleReqDto);
         return ResponseEntity.ok(true);
     }
 
     @PostMapping("/option/name")
     public ResponseEntity<?> addOptionName(@RequestBody AddOptionNameReqDto addOptionNameReqDto) {
+        System.out.println(addOptionNameReqDto);
         menuService.insertOptionName(addOptionNameReqDto);
         return ResponseEntity.created(null).body(true);
     }
 
-    @PutMapping("/option/name")
+    @PutMapping("/option")
     public ResponseEntity<?> updateOptionName(@RequestBody UpdateOptionNameReqDto updateOptionNameReqDto) {
+        System.out.println(updateOptionNameReqDto);
         menuService.editOptionName(updateOptionNameReqDto);
         return ResponseEntity.ok(true);
     }

@@ -3,6 +3,8 @@ package com.project.tableMaid.dto.menu.request;
 import com.project.tableMaid.entity.menu.OptionName;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class DeleteOptionNameReqDto {
     private int optionNameId;

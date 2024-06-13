@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -27,6 +28,7 @@ public class Menu {
     private String menuImgUrl;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+    private List<OptionName> options;  // 옵션 리스트 추가
 
     private MenuCategory menuCategory;
     private Admin admin;

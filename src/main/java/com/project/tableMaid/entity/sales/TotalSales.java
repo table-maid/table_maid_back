@@ -16,7 +16,7 @@ public class TotalSales {
     private int adminId;
     private int year;
     private int month;
-    private int day;
+    private int count;
     private int totalSales;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
@@ -26,6 +26,7 @@ public class TotalSales {
                 .adminId(adminId)
                 .year(year)
                 .month(month)
+                .count(count)
                 .totalSales(totalSales)
                 .createDate(createDate)
                 .updateDate(updateDate)

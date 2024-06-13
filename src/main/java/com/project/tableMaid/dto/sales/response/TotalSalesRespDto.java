@@ -11,6 +11,7 @@ public class TotalSalesRespDto {
     private int adminId;
     private int year;
     private int month;
+    private int count;
     private int totalSales;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;

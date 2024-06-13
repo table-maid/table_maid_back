@@ -67,6 +67,7 @@
             at.admin_id,
             year,
             month,
+            sum(count) as count,
             sum(menu_total_price) as total_sales,
             st.create_date,
             st.update_date

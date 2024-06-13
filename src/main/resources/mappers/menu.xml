@@ -219,7 +219,6 @@
             menu_category_id = #{menuCategoryId}
             and admin_id = #{adminId}
     </update>
-
     <delete id="deleteMenuCategory">
         delete from
             menu_category_tb
@@ -227,8 +226,6 @@
             admin_id = #{adminId}
             and menu_category_id = #{menuCategoryId}
     </delete>
-
-
     <update id="updateMenu">
         update
             menu_tb
@@ -244,7 +241,6 @@
             menu_id = #{menuId}
             and admin_id = #{adminId}
     </update>
-
     <delete id="deleteMenu">
         delete from
             menu_tb
@@ -254,7 +250,6 @@
             #{menuId}
         </foreach>
     </delete>
-
     <update id="updateOptionTitle">
         update
             option_title_tb
@@ -279,6 +274,16 @@
             and option_title_id = #{titleId}
             and menu_id = #{menuId}
     </update>
+    <update id="menuImgUrlUpload">
+        update
+            menu_tb
+        set
+            menu_img_url = #{menuImgUrl},
+            update_date = now()
+        where
+            admin_id = #{adminId} and
+            menu_id = #{menuId}
+    </update>
     <delete id="deleteOptionTitle">
         delete
             from option_title_tb
@@ -286,14 +291,12 @@
             option_title_id = #{optionTitleId}
             and admin_id = #{adminId}
     </delete>
-
     <delete id="deleteOptionName">
         delete
             from option_name_tb
         where
             admin_id = #{adminId} and
             option_name_id = #{optionNameId}
-
     </delete>
 
 </mapper>

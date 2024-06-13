@@ -165,6 +165,10 @@ public class MenuService {
         menuMapper.saveMenu(registerMenuReqDto.toEntity());
     }
 
+    public void menuImgUrlUpload(MenuImgUploadReqDto menuImgUploadReqDto) {
+        menuMapper.menuImgUrlUpload(menuImgUploadReqDto.toEntity());
+    }
+
     // 옵션 업데이트
     @Transactional
     public void editMenu(UpdateMenuReqDto updateMenuReqDto) {

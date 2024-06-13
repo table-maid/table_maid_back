@@ -119,4 +119,11 @@ public class MenuController {
         return ResponseEntity.ok(true);
     }
 
+    @PutMapping("/img")
+    public ResponseEntity<?> menuImgUrlUpload(@RequestBody MenuImgUploadReqDto menuImgUploadReqDto) {
+        System.out.println(menuImgUploadReqDto);
+        menuService.menuImgUrlUpload(menuImgUploadReqDto);
+        return ResponseEntity.ok(true);
+    }
+
 }

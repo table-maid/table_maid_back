@@ -24,6 +24,7 @@ public interface MenuMapper {
             @Param("menuCategoryId") int menuCategoryId
     );
     List<Menu> getMenuDetail(@Param("adminId") int adminId, @Param("menuId") int menuId);
+    void menuImgUrlUpload(Menu menu);
     int saveMenu(Menu menu);
     int saveMenuCategory(MenuCategory menuCategory);
     int saveOptionTitle(OptionTitle optionTitle);

@@ -2,7 +2,6 @@ package com.project.tableMaid.repository;
 
 import com.project.tableMaid.entity.sales.Order;
 import com.project.tableMaid.entity.sales.Sales;
-import com.project.tableMaid.entity.sales.TotalSales;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,7 +11,7 @@ import java.util.List;
 public interface SalesMapper {
     public int saveSales(List<Sales> sales);
     public int saveOrders(List<Order> orders);
-    public List<TotalSales> findTotalSales(@Param("adminId") int adminId);
+    public List<Sales> findTotalSales(@Param("adminId") int adminId);
     public List<Sales> findSelectDaySales(@Param("adminId") int adminId);
     public List<Sales> findMenuTotalSales(
             @Param("adminId") int adminId,

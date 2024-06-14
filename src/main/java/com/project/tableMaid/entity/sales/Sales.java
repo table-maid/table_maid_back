@@ -3,6 +3,7 @@ package com.project.tableMaid.entity.sales;
 import com.project.tableMaid.dto.sales.request.MenuTotalSalesReqDto;
 import com.project.tableMaid.dto.sales.response.MenuTotalSalesRespDto;
 import com.project.tableMaid.dto.sales.response.SelectDateRespDto;
+import com.project.tableMaid.dto.sales.response.TotalSalesRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,6 +32,8 @@ public class Sales {
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
+    private int totalSales;
+
 
     public SelectDateRespDto toSalesMenuRespDto () {
         return SelectDateRespDto.builder()
@@ -55,6 +58,18 @@ public class Sales {
                 .count(count)
                 .menuTotalSales(menuTotalSales)
                 .menuImgUrl(menuImgUrl)
+                .createDate(createDate)
+                .updateDate(updateDate)
+                .build();
+    }
+
+    public TotalSalesRespDto toTotalSalesMenuRespDto () {
+        return TotalSalesRespDto.builder()
+                .adminId(adminId)
+                .year(year)
+                .month(month)
+                .count(count)
+                .totalSales(totalSales)
                 .createDate(createDate)
                 .updateDate(updateDate)
                 .build();

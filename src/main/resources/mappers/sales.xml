@@ -15,18 +15,11 @@
         <result property="month" column="month"/>
         <result property="day" column="day"/>
         <result property="count" column="count"/>
+        <result property="totalSales" column="total_sales"/>
         <result property="menuTotalPrice" column="menu_total_price"/>
         <result property="dayTotalSales" column="day_total_sales"/>
         <result property="menuTotalSales" column="menu_total_sales"/>
         <result property="menuImgUrl" column="menu_img_url"/>
-        <result property="createDate" column="create_date"/>
-        <result property="updateDate" column="update_date"/>
-    </resultMap>
-    <resultMap id="totalSalesResultMap" type="com.project.tableMaid.entity.sales.TotalSales">
-        <result property="adminId" column="admin_id"/>
-        <result property="year" column="year"/>
-        <result property="month" column="month"/>
-        <result property="totalSales" column="total_sales"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
     </resultMap>
@@ -61,12 +54,13 @@
 
     <select
         id="findTotalSales"
-        resultMap="totalSalesResultMap"
+        resultMap="salesResultMap"
     >
         select
             at.admin_id,
             year,
             month,
+            sum(count) as count,
             sum(menu_total_price) as total_sales,
             st.create_date,
             st.update_date

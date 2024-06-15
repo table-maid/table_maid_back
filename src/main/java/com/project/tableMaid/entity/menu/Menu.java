@@ -2,8 +2,8 @@ package com.project.tableMaid.entity.menu;
 
 import com.project.tableMaid.dto.menu.response.MenuListRespDto;
 import com.project.tableMaid.dto.menu.response.MenusRespDto;
+import com.project.tableMaid.dto.user.response.SearchMenuRespDto;
 import com.project.tableMaid.entity.account.Admin;
-import jdk.jfr.Category;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -58,6 +58,20 @@ public class Menu {
                 .menuPrice(menuPrice)
                 .menuState(menuState)
                 .recommendMenu(recommendMenu)
+                .build();
+    }
+
+    public SearchMenuRespDto toSearchMenuRespDto() {
+        return SearchMenuRespDto.builder()
+                .adminId(admin.getAdminId())
+                .menuId(menuId)
+                .menuCategoryId(menuCategory.getMenuCategoryId())
+                .menuCode(menuCode)
+                .menuName(menuName)
+                .menuPrice(menuPrice)
+                .menuState(menuState)
+                .recommendMenu(recommendMenu)
+                .menuImgUrl(menuImgUrl)
                 .build();
     }
 }

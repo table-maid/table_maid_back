@@ -9,7 +9,7 @@ public class UpdateOptionNameReqDto {
     private int optionNameId;
     private int adminId;
     private int menuId;
-    private int titleId;
+    private int optionTitleId;
     private String optionName;
     private int optionPrice;
 
@@ -18,7 +18,7 @@ public class UpdateOptionNameReqDto {
                 .optionNameId(optionNameId)
                 .adminId(adminId)
                 .menuId(menuId)
-                .titleId(titleId)
+                .optionTitleId(optionTitleId)
                 .optionName(optionName)
                 .optionPrice(optionPrice)
                 .build();

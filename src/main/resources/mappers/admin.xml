@@ -115,11 +115,17 @@
             and email = #{email}
     </select>
 
-    <update id="updateAccountTemporaryPw">
+    <select id="findAccountByUserNameAndEmail" resultMap="AdminResultMap">
         select
             *
         from
-            admin_tb;
+            admin_tb
+        where
+            username = #{username}
+            and email = #{email}
+    </select>
+
+    <update id="updateAccountTemporaryPw">
         update
             admin_tb
         set

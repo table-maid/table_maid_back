@@ -30,7 +30,7 @@ public class Admin {
         return PrincipalUser.builder()
                 .adminId(adminId)
                 .adminName(adminName)
-                .username(adminName)
+                .username(username)
                 .email(email)
                 .companyNumber(companyNumber)
                 .companyName(companyName)

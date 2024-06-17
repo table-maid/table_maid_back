@@ -76,10 +76,10 @@ public class AccountMailService {
 
             mimeMessage.setText(mailContent.toString(), "utf-8", "html");
 
-            javaMailSender.send(mimeMessage);   // 메일 전송
 
             redisUtil.setDataExpire(toMailAddress, authCode, 60*3L);
             result = true;
+            javaMailSender.send(mimeMessage);   // 메일 전송
 
         } catch (MessagingException e) {
             e.printStackTrace();
@@ -136,7 +136,7 @@ public class AccountMailService {
 
     // 비밀번호 찾기
     public Admin searchAccountByUsernameAndEmail(String username, String email) {
-        return adminMapper.findAccountByNameAndEmail(username, email);
+        return adminMapper.findAccountByUserNameAndEmail(username, email);
     }
     public boolean sendTemporaryPassword(Admin admin) {
 
@@ -165,8 +165,7 @@ public class AccountMailService {
                 mimeMessage.setText(mailContent.toString(), "UTF-8", "html");
                 javaMailSender.send(mimeMessage);
 
-                admin.setPassword(encodedPassword);
-                adminMapper.updateAccountTemporaryPw(admin.getAdminId(), admin.getPassword());
+                adminMapper.updateAccountTemporaryPw(admin.getAdminId(), encodedPassword);
 
                 result = true;
             } catch (Exception exception) {

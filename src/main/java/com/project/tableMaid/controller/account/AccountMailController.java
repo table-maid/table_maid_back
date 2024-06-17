@@ -24,6 +24,7 @@ public class AccountMailController {
     @Autowired
     AccountMailService accountMailService;
 
+    // 메일에 인증번호 보내기
     @PostMapping("/{email}/send/authenticate")
     @ResponseBody
     public ResponseEntity<?> sendAuthenticate(HttpServletRequest request, @PathVariable String email) {
@@ -31,6 +32,7 @@ public class AccountMailController {
         return ResponseEntity.ok(accountMailService.sendAuthMail(email));
     }
 
+    // 인증번호가 유효한지
     @PostMapping("/verify/authenticate")
     public ResponseEntity<?> verifyAuthCode(@RequestBody verifyAuthCodeReqDto verifyAuthCodeReqDto) {
         Map<String, String> resultMap = accountMailService.verifyEmailCode(verifyAuthCodeReqDto.getEmail(), verifyAuthCodeReqDto.getAuthCode());
@@ -45,13 +47,12 @@ public class AccountMailController {
     }
 
 
-    @ParamsPrintAspect
+    // 아이디 찾기
     @PostMapping("/send/id")
     public ResponseEntity<?> send(HttpServletRequest request, @RequestBody AdminSearchAdminNameReqDto adminSearchAdminNameReqDto) {
         request.getSession().setAttribute("timer", new Date());
         Admin admin = accountMailService.searchAccountByNameAndEmail(adminSearchAdminNameReqDto.getAdminName(), adminSearchAdminNameReqDto.getEmail());
         if(admin == null){
-            System.out.println("Admin is null, throwing UsernameNotFoundException");
             throw new UsernameNotFoundException("일치하는 회원정보가 없습니다.");
         }
         accountMailService.searchAccountByMail(admin);
@@ -59,11 +60,15 @@ public class AccountMailController {
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
+    // 비밀번호 찾기
+    @ParamsPrintAspect
     @PostMapping("/send/temporary/password")
     public ResponseEntity<?> sendTemporaryPassword(HttpServletRequest request, @RequestBody AdminFindPasswordReqDto adminFindPasswordReqDto) {
         request.getSession().setAttribute("timer", new Date());
         Admin admin = accountMailService.searchAccountByUsernameAndEmail(adminFindPasswordReqDto.getUsername(), adminFindPasswordReqDto.getEmail());
-        accountMailService.sendTemporaryPassword(admin);
+        if(admin == null) {
+            throw new UsernameNotFoundException("일치하는 회원정보가 없습니다.");
+        }
 
         if (admin != null && accountMailService.sendTemporaryPassword(admin)) {
             return ResponseEntity.ok("임시 비밀번호가 성공적으로 전송되었습니다.");

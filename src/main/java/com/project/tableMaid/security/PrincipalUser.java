@@ -11,7 +11,6 @@ import java.util.List;
 
 @Builder
 @Data
-
 public class PrincipalUser implements UserDetails {
     private int adminId;
     private String adminName;
@@ -25,7 +24,7 @@ public class PrincipalUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        return null;
     }
 
     @Override

@@ -128,7 +128,8 @@
             mt.menu_name,
             mt.menu_price,
             mt.menu_state,
-            mt.recommend_menu
+            mt.recommend_menu,
+            mt.menu_img_url
         from
             menu_tb mt
             left outer join admin_tb at on (at.admin_id = mt.admin_id)

@@ -59,6 +59,7 @@ public class Menu {
                 .menuName(menuName)
                 .menuPrice(menuPrice)
                 .menuState(menuState)
+                .menuImgUrl(menuImgUrl)
                 .recommendMenu(recommendMenu)
                 .build();
     }

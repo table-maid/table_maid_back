@@ -16,7 +16,7 @@ public class OptionName {
     private int optionNameId;
     private int adminId;
     private int menuId;
-    private int titleId;
+    private int optionTitleId;
     private String optionName;
     private int optionPrice;
     private LocalDateTime createDate;

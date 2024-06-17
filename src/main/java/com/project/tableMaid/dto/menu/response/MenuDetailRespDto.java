@@ -25,7 +25,6 @@ public class MenuDetailRespDto {
     private int menuState;
     private List<OptionDetail> optionList;
 
-
     @Data
     @Builder
     @NoArgsConstructor

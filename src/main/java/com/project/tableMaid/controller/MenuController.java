@@ -30,7 +30,7 @@ public class MenuController {
     }
     @GetMapping("/menus")
     public ResponseEntity<?> getCategoriesByAdminId(@RequestParam int adminId, int menuCategoryId) {
-
+        System.out.println(menuService.getMenusByCategoryId(adminId, menuCategoryId));
         return ResponseEntity.ok(menuService.getMenusByCategoryId(adminId, menuCategoryId));
     }
     @GetMapping("/option")

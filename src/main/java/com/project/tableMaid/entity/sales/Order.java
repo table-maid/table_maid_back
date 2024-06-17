@@ -30,11 +30,6 @@ public class Order {
                 .orderNumber(orderNumber)
                 .tableNumber(tableNumber)
                 .peopleCount(peopleCount)
-                .menuName(menuName)
-                .menuCount(menuCount)
-                .menuTotalPrice(menuTotalPrice)
-                .createDate(createDate)
-                .updateDate(updateDate)
                 .build();
     }
 

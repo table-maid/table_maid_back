@@ -8,7 +8,7 @@ import lombok.Data;
 public class AddOptionNameReqDto {
     private int adminId;
     private int menuId;
-    private int titleId;
+    private int optionTitleId;
     private String optionName;
     private int optionPrice;
 
@@ -16,7 +16,7 @@ public class AddOptionNameReqDto {
         return OptionName.builder()
                 .adminId(adminId)
                 .menuId(menuId)
-                .titleId(titleId)
+                .optionTitleId(optionTitleId)
                 .optionName(optionName)
                 .optionPrice(optionPrice)
                 .build();

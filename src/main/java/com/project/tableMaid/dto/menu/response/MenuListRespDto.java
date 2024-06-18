@@ -19,5 +19,6 @@ public class MenuListRespDto {
     private int menuPrice;
     private int menuState;
     private int recommendMenu;
+    private String menuImgUrl;
 
 }

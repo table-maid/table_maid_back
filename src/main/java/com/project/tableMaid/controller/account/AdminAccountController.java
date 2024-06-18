@@ -1,5 +1,6 @@
 package com.project.tableMaid.controller.account;
 
+import com.project.tableMaid.aop.annotation.ParamsPrintAspect;
 import com.project.tableMaid.aop.annotation.ValidAspect;
 import com.project.tableMaid.dto.account.request.EditPasswordReqDto;
 import com.project.tableMaid.security.PrincipalUser;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/admin/account")
+@RequestMapping("/account")
 public class AdminAccountController {
 
     @Autowired
@@ -28,6 +29,7 @@ public class AdminAccountController {
         return ResponseEntity.ok(principalUser);
     }
 
+    @ParamsPrintAspect
     @ValidAspect
     @PutMapping("/password")
     public ResponseEntity<?> editPassword(@Valid @RequestBody EditPasswordReqDto editPasswordReqDto, BindingResult bindingResult) {

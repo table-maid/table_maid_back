@@ -16,7 +16,6 @@ public class MenuController {
 
     @GetMapping("/list")
     public ResponseEntity<?> getMenuListByAdminId(SearchMenuListReqDto searchMenuListReqDto) {
-        System.out.println(searchMenuListReqDto);
         return ResponseEntity.ok(menuService.getMenuList(searchMenuListReqDto));
     }
     @GetMapping("/detail")
@@ -24,14 +23,13 @@ public class MenuController {
         return ResponseEntity.ok(menuService.getMenuDetail(adminId, menuId));
     }
     @GetMapping("/categories")
-    public ResponseEntity<?> getCategoriesByAdminId(@RequestParam int adminId) {
+    public ResponseEntity<?> getCategoriesByAdminId(@RequestParam int adminId, int categoryPageNum) {
 
-        return ResponseEntity.ok(menuService.getCategories(adminId));
+        return ResponseEntity.ok(menuService.getCategories(adminId, categoryPageNum));
     }
     @GetMapping("/menus")
-    public ResponseEntity<?> getCategoriesByAdminId(@RequestParam int adminId, int menuCategoryId) {
-        System.out.println(menuService.getMenusByCategoryId(adminId, menuCategoryId));
-        return ResponseEntity.ok(menuService.getMenusByCategoryId(adminId, menuCategoryId));
+    public ResponseEntity<?> getMenusByAdminId(@RequestParam int adminId, int menuCategoryId, int menuPageNum) {
+        return ResponseEntity.ok(menuService.getMenusByCategoryId(adminId, menuCategoryId, menuPageNum));
     }
     @GetMapping("/option")
     public ResponseEntity<?> getOptionsByAdminId(@RequestParam int adminId, int menuId) {
@@ -46,7 +44,6 @@ public class MenuController {
 
     @PutMapping("/menus")
     public ResponseEntity<?> updateMenu(@RequestBody UpdateMenuReqDto updateMenuReqDto) {
-        System.out.println(updateMenuReqDto);
         menuService.editMenu(updateMenuReqDto);
         return ResponseEntity.ok(true);
     }
@@ -94,21 +91,18 @@ public class MenuController {
 
     @DeleteMapping("/option/title")
     public ResponseEntity<?> deleteOptionTitle(@RequestBody DeleteOptionTitleReqDto deleteOptionTitleReqDto) {
-        System.out.println(deleteOptionTitleReqDto);
         menuService.deleteOptionTitle(deleteOptionTitleReqDto);
         return ResponseEntity.ok(true);
     }
 
     @PostMapping("/option/name")
     public ResponseEntity<?> addOptionName(@RequestBody AddOptionNameReqDto addOptionNameReqDto) {
-        System.out.println(addOptionNameReqDto);
         menuService.insertOptionName(addOptionNameReqDto);
         return ResponseEntity.created(null).body(true);
     }
 
     @PutMapping("/option")
     public ResponseEntity<?> updateOptionName(@RequestBody UpdateOptionNameReqDto updateOptionNameReqDto) {
-        System.out.println(updateOptionNameReqDto);
         menuService.editOptionName(updateOptionNameReqDto);
         return ResponseEntity.ok(true);
     }
@@ -121,7 +115,6 @@ public class MenuController {
 
     @PutMapping("/img")
     public ResponseEntity<?> menuImgUrlUpload(@RequestBody MenuImgUploadReqDto menuImgUploadReqDto) {
-        System.out.println(menuImgUploadReqDto);
         menuService.menuImgUrlUpload(menuImgUploadReqDto);
         return ResponseEntity.ok(true);
     }

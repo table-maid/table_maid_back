@@ -32,12 +32,14 @@ public class UserService {
     }
 
     public List<CategoriesRespDto> searchCategoriesByAdminId(int adminId) {
-        List<MenuCategory> menuCategories = menuMapper.getMenuCategoryByAdminId(adminId);
+        int categoryLimitNum = 0;
+        List<MenuCategory> menuCategories = menuMapper.getMenuCategoryByAdminId(adminId, categoryLimitNum, categoryLimitNum);
         return menuCategories.stream().map(MenuCategory::toCategoriesRespDto).collect(Collectors.toList());
     }
 
     public List<MenusRespDto> searchMenusByAdminIdAndCategoryId(int adminId, int menuCategoryId) {
-        List<Menu> menus = menuMapper.getMenuByAdminIdAndCategoryId(adminId, menuCategoryId);
+        int limitMenuNum = 0;
+        List<Menu> menus = menuMapper.getMenuByAdminIdAndCategoryId(adminId, menuCategoryId, limitMenuNum);
         return menus.stream().map(Menu::toMenuRespDto).collect(Collectors.toList());
     }
 

@@ -21,13 +21,19 @@ public class MenuService {
     // 메뉴 리스트 조회
     @Transactional(rollbackFor = Exception.class)
     public List<MenuListRespDto> getMenuList(SearchMenuListReqDto searchMenuListReqDto) {
+        int startMenuIndex = 0;
+        if(searchMenuListReqDto.getMenuPageNum() != 1){
+            startMenuIndex = (searchMenuListReqDto.getMenuPageNum() * 25) - 25;
+        }
         List<Menu> menuList = menuMapper.getMenuList(
                 searchMenuListReqDto.getAdminId(),
                 searchMenuListReqDto.getMenuName(),
                 searchMenuListReqDto.getMenuCode(),
                 searchMenuListReqDto.getMenuState(),
                 searchMenuListReqDto.getRecommendMenu(),
-                searchMenuListReqDto.getMenuCategoryId()
+                searchMenuListReqDto.getMenuCategoryId(),
+                searchMenuListReqDto.getMenuPageNum(),
+                startMenuIndex
         );
         List<MenuListRespDto> menuListRespDto = new ArrayList<>();
         for (Menu menu : menuList) {
@@ -87,24 +93,27 @@ public class MenuService {
                 menuDetailRespDtoList.add(dto);
             }
         }
-        System.out.println(menuDetailRespDtoList);
         return menuDetailRespDtoList;
     }
     //카테고리 조회
     @Transactional(rollbackFor = Exception.class)
-    public List<CategoriesRespDto> getCategories(int adminId) {
-        List<MenuCategory> menuCategories = menuMapper.getMenuCategoryByAdminId(adminId);
+    public List<CategoriesRespDto> getCategories(int adminId, int categoryPageNum) {
+        int categoryStartIndex = (categoryPageNum - 1) * 5;
+        List<MenuCategory> menuCategories = menuMapper.getMenuCategoryByAdminId(adminId, categoryStartIndex, categoryPageNum);
         List<CategoriesRespDto> categoriesRespDtoList = new ArrayList<>();
         for (MenuCategory menuCategory : menuCategories) {
             categoriesRespDtoList.add(menuCategory.toCategoriesRespDto());
         }
+        System.out.println(categoriesRespDtoList);
         return categoriesRespDtoList;
     }
 
     // 메뉴 조회
     @Transactional(rollbackFor = Exception.class)
-    public List<MenusRespDto> getMenusByCategoryId(int adminId, int menuCategoryId) {
-        List<Menu> menus = menuMapper.getMenuByAdminIdAndCategoryId(adminId, menuCategoryId);
+    public List<MenusRespDto> getMenusByCategoryId(int adminId, int menuCategoryId, int menuPageNum) {
+        int limitMenuNum = menuPageNum * 25;
+        System.out.println(limitMenuNum);
+        List<Menu> menus = menuMapper.getMenuByAdminIdAndCategoryId(adminId, menuCategoryId, limitMenuNum);
         List<MenusRespDto> menuRespDtoList = new ArrayList<>();
         for (Menu menu : menus) {
             menuRespDtoList.add(menu.toMenuRespDto());

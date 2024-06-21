@@ -71,6 +71,17 @@
             menu_category_tb
         where
             admin_id = #{adminId}
+        <choose>
+            <when test="categoryPageNum == 0">
+                limit 100
+            </when>
+            <when test="categoryPageNum == 1">
+                limit 5
+            </when>
+            <otherwise>
+                limit #{categoryStartIndex}, 5
+            </otherwise>
+        </choose>
     </select>
 
     <select id="getMenuByAdminIdAndCategoryId" resultMap="MenuResultMap">
@@ -91,6 +102,14 @@
             <if test="menuCategoryId != 0" >
             and menu_category_id = #{menuCategoryId}
             </if>
+        <choose>
+            <when test="limitMenuNum == 0">
+                limit #{limitMenuNum}, 100
+            </when>
+            <otherwise>
+                limit #{limitMenuNum}, 25
+            </otherwise>
+        </choose>
     </select>
 
     <select id="getOptionsByMenuId" resultMap="OptionNameResultMap">
@@ -136,10 +155,10 @@
             left outer join menu_category_tb mct on (mct.menu_category_id = mt.menu_category_id)
         where
             at.admin_id = #{adminId}
-        <if test="menuName != null">
+        <if test="menuName != null and menuName != ''">
             and mt.menu_name like CONCAT('%', #{menuName}, '%')
         </if>
-        <if test="menuCode != null">
+        <if test="menuCode != null and menuCode != ''">
             and mt.menu_code like CONCAT('%', #{menuCode}, '%')
         </if>
         <if test="menuState != 0">
@@ -152,10 +171,18 @@
             and mt.menu_category_id = #{menuCategoryId}
         </if>
         order by
-
-            mt.menu_category_id;
-
-
+        mt.menu_category_id
+        <choose>
+            <when test="menuPageNum == 0">
+                limit 100
+            </when>
+            <when test="menuPageNum == 1">
+                limit 25
+            </when>
+            <otherwise>
+                limit #{startMenuIndex}, 25
+            </otherwise>
+        </choose>
     </select>
     <select id="getMenuDetail" resultMap="MenuResultMap">
         select

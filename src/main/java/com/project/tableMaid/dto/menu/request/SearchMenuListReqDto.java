@@ -10,4 +10,5 @@ public class SearchMenuListReqDto {
     private int menuState;
     private int recommendMenu;
     private int menuCategoryId;
+    private int menuPageNum;
 }

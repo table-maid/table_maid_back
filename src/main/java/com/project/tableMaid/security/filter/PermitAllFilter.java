@@ -23,7 +23,8 @@ public class PermitAllFilter extends GenericFilter {
                 "/sales",
                 "/menu",
                 "/user",
-                "/mail"
+                "/mail",
+                "/send"
         );
 
         String uri = request.getRequestURI();

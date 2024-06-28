@@ -13,7 +13,6 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
-
     @GetMapping("/list")
     public ResponseEntity<?> getMenuListByAdminId(SearchMenuListReqDto searchMenuListReqDto) {
         return ResponseEntity.ok(menuService.getMenuList(searchMenuListReqDto));

@@ -1,4 +1,4 @@
-package com.project.tableMaid.entity.sales;
+package com.project.tableMaid.dto.sales.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,22 +7,19 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Refund {
-    private int refundId;
-    private int adminId;
-    private String  refundCode;
+public class OrderListRespDto {
     private int orderNumber;
     private int tableNumber;
+    private int peopleCount;
     private String menuName;
     private int menuCount;
-    private String optionName;
-    private int optionPrice;
     private int menuTotalPrice;
-    private LocalDateTime createDate;
-    private LocalDateTime updateDate;
+    private int orderTotalPrice;
+    private LocalDateTime paymentDate;
+
+
 }

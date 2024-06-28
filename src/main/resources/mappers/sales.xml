@@ -30,8 +30,11 @@
         <result property="orderNumber" column="order_number"/>
         <result property="tableNumber" column="table_number"/>
         <result property="peopleCount" column="people_count"/>
+        <result property="menuCount" column="menu_count"/>
         <result property="menuName" column="menu_name"/>
         <result property="menuTotalPrice" column="menu_total_price"/>
+        <result property="optionPrice" column="option_price"/>
+        <result property="optionName" column="option_name"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
     </resultMap>
@@ -50,6 +53,34 @@
         <foreach collection="orders" item="order" separator=",">
             (0, #{order.adminId}, #{order.orderNumber}, #{order.tableNumber}, #{order.peopleCount}, #{order.menuName}, #{order.menuCount}, #{order.menuTotalPrice}, now(), now())
         </foreach>
+    </insert>
+    <insert id="saveRefundDetail" parameterType="com.project.tableMaid.entity.sales.Refund">
+        INSERT INTO refund_tb (
+            admin_id,
+            refund_code,
+            order_number,
+            table_number,
+            menu_name,
+            menu_count,
+            option_name,
+            option_price,
+            menu_total_price,
+            create_date,
+            update_date
+        )
+        VALUES (
+            #{adminId},
+            #{refundCode},
+            #{orderNumber},
+            #{tableNumber},
+            #{menuName},
+            #{menuCount},
+            #{optionName},
+            #{optionPrice},
+            #{menuTotalPrice},
+            NOW(),
+            NOW()
+            )
     </insert>
 
     <select
@@ -163,6 +194,25 @@
         from
             order_tb
     </select>
+    <select id="findOrderListByAdminId" resultMap="orderResultMap">
+        select
+            *
+        from
+            order_tb
+        where
+            admin_id = #{adminId}
+
+    </select>
+    <select id="findOrderDetailByOrderId" resultMap="orderResultMap">
+        select
+            *
+        from
+            order_tb
+        where
+            admin_id = #{adminId} and
+            order_number = #{orderNumber}
+    </select>
+
 
     <delete id="deleteSales">
         delete
@@ -179,5 +229,8 @@
         where
             order_number = #{orderNumber} and admin_id = #{adminId}
     </delete>
-    
+    <delete id="deleteByOrderNumber">
+
+    </delete>
+
 </mapper>

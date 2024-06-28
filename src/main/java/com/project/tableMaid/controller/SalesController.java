@@ -3,6 +3,7 @@ package com.project.tableMaid.controller;
 import com.project.tableMaid.aop.annotation.ParamsPrintAspect;
 import com.project.tableMaid.dto.sales.request.MenuTotalSalesReqDto;
 import com.project.tableMaid.dto.sales.request.OrderMenuReqDto;
+import com.project.tableMaid.dto.sales.request.RefundDetailReqDto;
 import com.project.tableMaid.dto.sales.request.SalesMenuReqDto;
 import com.project.tableMaid.entity.sales.Order;
 import com.project.tableMaid.service.SalesService;
@@ -19,11 +20,12 @@ public class SalesController {
     @Autowired
     SalesService salesService;
 
-    @PostMapping("/menu")
-    public ResponseEntity<?> addSales(@RequestBody List<SalesMenuReqDto> salesMenuReqDto) {
-        salesService.insertSales(salesMenuReqDto);
-        return ResponseEntity.created(null).body(true);
-    }
+    // 디비 수정으로 코드 전체 수정 필요
+//    @PostMapping("/menu")
+//    public ResponseEntity<?> addSales(@RequestBody List<SalesMenuReqDto> salesMenuReqDto) {
+//        salesService.insertSales(salesMenuReqDto);
+//        return ResponseEntity.created(null).body(true);
+//    }
 
     @GetMapping("/total")
     public ResponseEntity<?> getSales(@RequestParam int adminId) {
@@ -62,6 +64,18 @@ public class SalesController {
         salesService.deleteOrders(orderNumber, 2);
         return ResponseEntity.created(null).body(true);
     }
-
+    @GetMapping("/payment")
+    public ResponseEntity<?> getPaymentList(@RequestParam int adminId) {
+        return ResponseEntity.ok(salesService.getOrderList(adminId));
+    }
+    @GetMapping("/payment/detail")
+    public ResponseEntity<?> getPaymentDetail(@RequestParam int adminId, int orderNumber) {
+        return ResponseEntity.ok(salesService.getOrderDetail(adminId, orderNumber));
+    }
+    @PostMapping("/refund/detail")
+    public ResponseEntity<?> addRefundDetail(@RequestBody RefundDetailReqDto refundDetailReqDto) {
+        salesService.insertRefund(refundDetailReqDto);
+        return ResponseEntity.created(null).body(true);
+    }
 
 }

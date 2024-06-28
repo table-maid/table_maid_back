@@ -1,6 +1,5 @@
 package com.project.tableMaid.entity.sales;
 
-import com.project.tableMaid.dto.sales.request.MenuTotalSalesReqDto;
 import com.project.tableMaid.dto.sales.response.MenuTotalSalesRespDto;
 import com.project.tableMaid.dto.sales.response.SelectDateRespDto;
 import com.project.tableMaid.dto.sales.response.TotalSalesRespDto;
@@ -35,7 +34,7 @@ public class Sales {
     private int totalSales;
 
 
-    public SelectDateRespDto toSalesMenuRespDto () {
+    public SelectDateRespDto toSalesDateRespDto () {
         return SelectDateRespDto.builder()
                 .year(year)
                 .month(month)
@@ -74,4 +73,6 @@ public class Sales {
                 .updateDate(updateDate)
                 .build();
     }
+
+
 }

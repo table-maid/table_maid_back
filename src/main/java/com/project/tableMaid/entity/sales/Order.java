@@ -1,5 +1,6 @@
 package com.project.tableMaid.entity.sales;
 
+import com.project.tableMaid.dto.sales.response.OrderListRespDto;
 import com.project.tableMaid.dto.sales.response.OrderMenuRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +21,8 @@ public class Order {
     private int peopleCount;
     private String menuName;
     private int menuCount;
+    private String optionName;
+    private int optionPrice;
     private int menuTotalPrice;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
@@ -32,5 +35,6 @@ public class Order {
                 .peopleCount(peopleCount)
                 .build();
     }
+
 
 }

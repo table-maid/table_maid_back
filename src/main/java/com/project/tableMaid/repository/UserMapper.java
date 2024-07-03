@@ -13,10 +13,11 @@ import java.util.List;
 public interface UserMapper {
     Admin findCompanyNameByAdminId(int adminId);
     int deleteSingleMenu(@Param("adminId") int adminId, int menuId);
-    List<OptionName> getOptionsAndMenuByMenuId(@Param("adminId") int adminId, @Param("menuId") int menuId);
-    Menu getMenuByAdminIdAndCategoryId(
+    List<OptionName> findOptionsAndMenuByMenuId(@Param("adminId") int adminId, @Param("menuId") int menuId);
+    Menu findMenuByAdminIdAndCategoryId(
             @Param("menuId") int menuId,
             @Param("adminId") int adminId,
             @Param("menuCategoryId") int menuCategoryId
     );
+    Admin findAdminByCompanyNumber(int companyNumber);
 }

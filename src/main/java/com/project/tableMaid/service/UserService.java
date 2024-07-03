@@ -49,12 +49,16 @@ public class UserService {
     }
 
     public List<OptionRespDto> searchOptionAndMenuByMenuId(int adminId, int menuId) {
-        List<OptionName> options = userMapper.getOptionsAndMenuByMenuId(adminId, menuId);
+        List<OptionName> options = userMapper.findOptionsAndMenuByMenuId(adminId, menuId);
         return options.stream().map(OptionName::toOptionRespDto).collect(Collectors.toList());
     }
 
     public SearchMenuRespDto searchMenuById(int menuId, int adminId, int menuCategoryId) {
-        Menu menu = userMapper.getMenuByAdminIdAndCategoryId(menuId, adminId, menuCategoryId);
+        Menu menu = userMapper.findMenuByAdminIdAndCategoryId(menuId, adminId, menuCategoryId);
         return menu.toSearchMenuRespDto();
+    }
+
+    public Admin searchAdminByCompanyNumber(int companyNumber) {
+        return userMapper.findAdminByCompanyNumber(companyNumber);
     }
 }

@@ -43,4 +43,9 @@ public class UserController {
     public ResponseEntity<?> getSoloMenu(@RequestParam int menuId, int adminId, int menuCategoryId) {
         return ResponseEntity.ok(userService.searchMenuById(menuId, adminId, menuCategoryId));
     }
+
+    @GetMapping("/company/number")
+    public ResponseEntity<?> getMainMenu(@RequestParam(value = "companyNumber") int companyNumber) {
+        return ResponseEntity.ok(userService.searchAdminByCompanyNumber(companyNumber));
+    }
 }

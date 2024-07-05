@@ -234,7 +234,7 @@
         insert into
             option_name_tb
         values
-            (0, #{adminId}, #{menuId}, #{titleId}, #{optionName}, #{optionPrice}, now(), now())
+            (0, #{adminId}, #{menuId}, #{optionTitleId}, #{optionName}, #{optionPrice}, now(), now())
     </insert>
     
     <update id="updateMenuCategory">

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.tableMaid.repository.PosMapper">
+
+    <insert id="savePosFloor" parameterType="com.project.tableMaid.entity.pos.Floors">
+        insert into floors_tb
+        values
+        <foreach collection="floors" item="floor" separator=",">
+            (0, #{floor.floorsId}, #{floor.adminId}, #{floor.floorNum}, #{floor.floorName}, now(), now())
+        </foreach>
+    </insert>
+
+    <insert id="savePosTable" parameterType="com.project.tableMaid.entity.pos.Tables">
+        inset into tables_tb
+        values
+        <foreach collection="tables" item="table" separator=",">
+            (0, #{table.tablesId}, #{table.adminId}, #{table.floorNum}, #{table.tablesNum}, #{table.tablesName}, now(), now())
+        </foreach>
+    </insert>
+
+</mapper>

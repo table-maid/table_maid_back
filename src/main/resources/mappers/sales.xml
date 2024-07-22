@@ -194,15 +194,23 @@
         from
             order_tb
     </select>
+
     <select id="findOrderListByAdminId" resultMap="orderResultMap">
         select
-            *
+        *
         from
-            order_tb
-        where
-            admin_id = #{adminId}
-
+        order_tb
+        <where>
+            <if test="adminId != null">
+                AND admin_id = #{adminId}
+            </if>
+            <if test="startDate != null and endDate != null">
+                AND create_date >= concat(#{startDate}, ' 00:00:00')
+                AND create_date &lt;= concat(#{endDate}, ' 23:59:59')
+            </if>
+        </where>
     </select>
+
     <select id="findOrderDetailByOrderId" resultMap="orderResultMap">
         select
             *
@@ -212,7 +220,6 @@
             admin_id = #{adminId} and
             order_number = #{orderNumber}
     </select>
-
 
     <delete id="deleteSales">
         delete

@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class SSESendMenusReqDto {
+    private int tableNumber;
     private SSEMenuReqDto menu;
     private List<SSEOptionReqDto> options;
 }

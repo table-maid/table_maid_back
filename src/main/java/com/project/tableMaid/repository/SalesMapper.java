@@ -21,7 +21,7 @@ public interface SalesMapper {
     public List<Order> findOrders();
     public int deleteSales(@Param("orderNumber") int orderNumber, @Param("adminId") int adminId);
     public int deleteOrder(@Param("orderNumber") int orderNumber, @Param("adminId") int adminId);
-    public List<Order> findOrderListByAdminId(@Param("adminId") int adminId);
+    public List<Order> findOrderListByAdminId(@Param("adminId") int adminId, @Param("startDate") String startDate, @Param("endDate") String endDate);
     public List<Order> findOrderDetailByOrderId(@Param("adminId") int adminId, @Param("orderNumber") int orderNumber);
     public void saveRefundDetail (Refund refund);
 }

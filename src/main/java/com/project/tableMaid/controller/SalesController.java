@@ -65,8 +65,8 @@ public class SalesController {
         return ResponseEntity.created(null).body(true);
     }
     @GetMapping("/payment")
-    public ResponseEntity<?> getPaymentList(@RequestParam int adminId) {
-        return ResponseEntity.ok(salesService.getOrderList(adminId));
+    public ResponseEntity<?> getPaymentList(@RequestParam int adminId, String startDate, String endDate) {
+        return ResponseEntity.ok(salesService.getOrderList(adminId, startDate, endDate));
     }
     @GetMapping("/payment/detail")
     public ResponseEntity<?> getPaymentDetail(@RequestParam int adminId, int orderNumber) {

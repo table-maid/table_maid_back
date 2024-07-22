@@ -113,8 +113,8 @@ public class SalesService {
 
     // 주문 내역 리스트 조회
     @Transactional(rollbackFor = Exception.class)
-    public List<Map<String, Object>> getOrderList(int adminId) {
-        List<Order> orderList = salesMapper.findOrderListByAdminId(adminId);
+    public List<Map<String, Object>> getOrderList(int adminId, String startDate, String endDate) {
+        List<Order> orderList = salesMapper.findOrderListByAdminId(adminId, startDate, endDate);
         Map<Integer, Map<String, Object>> groupedOrders = new HashMap<>();
 
         for (Order order : orderList) {

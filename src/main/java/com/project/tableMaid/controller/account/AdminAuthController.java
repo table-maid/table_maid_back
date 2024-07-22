@@ -31,6 +31,7 @@ public class AdminAuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> adminSignin(@RequestBody AdminSignupReqDto adminSignupReqDto) {
+        System.out.println(123);
         return ResponseEntity.ok(adminAuthService.adminSignin(adminSignupReqDto));
     }
 

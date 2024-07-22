@@ -47,6 +47,7 @@ public class AdminAuthService {
         if(!passwordEncoder.matches(adminSignupReqDto.getPassword(), admin.getPassword())) {
             throw new BadCredentialsException("사용자 정보를 확인하세요");
         }
+        System.out.println(123);
         return jwtProvider.generateToken(admin);
     }
 }

@@ -20,6 +20,7 @@ public class Floors {
     private String floorName;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+
     private List<Table> tableList;
 
     public PosFloorsTablesListRespDto toRespDto() {

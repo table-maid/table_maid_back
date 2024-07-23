@@ -22,7 +22,7 @@
         <result property="floorName" column="floor_name"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
-        <collection property="tableList"  javaType="list" column="TableResultMap"/>
+        <collection property="tableList" ofType="com.project.tableMaid.entity.pos.Table" resultMap="TableResultMap" column="floor_num"/>
     </resultMap>
 
     <select id="findPosFloorsTables" resultMap="PosFloorTable">
@@ -34,17 +34,19 @@
             ft.create_date,
             ft.update_date,
             tt.tables_id,
-            tt.admin_id,
-            tt.floor_num,
+            tt.admin_id as table_admin_id,
+            tt.floor_num as table_floor_num,
             tt.tables_num,
             tt.tables_name,
-            tt.create_date,
-            tt.update_date
+            tt.create_date as table_create_date,
+            tt.update_date as table_update_date
         from
             floors_tb ft
             left outer join tables_tb tt on (tt.floor_num = ft.floor_num)
         where
             ft.admin_id = #{adminId}
+        order by
+            tt.tables_num ASC
     </select>
 
     <insert id="savePosFloor" parameterType="com.project.tableMaid.entity.pos.Floors">

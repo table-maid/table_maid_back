@@ -46,7 +46,7 @@ public class PosService {
     // 층, 테이블 조회
     public List<PosFloorsTablesListRespDto> getPosFloorsTables(int adminId) {
         List<Floors> floors = posMapper.findPosFloorsTables(adminId);
-
+        System.out.println(floors);
         return floors.stream().map(Floors::toRespDto).collect(Collectors.toList());
     }
 

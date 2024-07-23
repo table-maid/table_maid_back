@@ -25,8 +25,8 @@ public class PosController {
         return ResponseEntity.created(null).body(true);
     }
 
-    @GetMapping("/floor/talbe")
-    public ResponseEntity<?> getPos(@RequestParam int adminId) {
+    @GetMapping("/floor/table")
+    public ResponseEntity<?> getPos(@RequestParam(value = "adminId") int adminId) {
         return ResponseEntity.ok(posService.getPosFloorsTables(adminId));
     }
 

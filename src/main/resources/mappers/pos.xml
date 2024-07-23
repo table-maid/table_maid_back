@@ -5,19 +5,61 @@
 
 <mapper namespace="com.project.tableMaid.repository.PosMapper">
 
+    <resultMap id="TableResultMap" type="com.project.tableMaid.entity.pos.Table">
+        <id property="tablesId" column="tables_id"/>
+        <result property="adminId" column="admin_id"/>
+        <result property="floorNum" column="floor_num"/>
+        <result property="tablesNum" column="tables_num"/>
+        <result property="tablesName" column="tables_name"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+
+    <resultMap id="PosFloorTable" type="com.project.tableMaid.entity.pos.Floors">
+        <id property="floorId" column="floor_id"/>
+        <result property="adminId" column="admin_id"/>
+        <result property="floorNum" column="floor_num"/>
+        <result property="floorName" column="floor_name"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+        <collection property="tableList"  javaType="list" column="TableResultMap"/>
+    </resultMap>
+
+    <select id="findPosFloorsTables" resultMap="PosFloorTable">
+        select
+            ft.floor_id,
+            ft.admin_id,
+            ft.floor_num,
+            ft.floor_name,
+            ft.create_date,
+            ft.update_date,
+            tt.tables_id,
+            tt.admin_id,
+            tt.floor_num,
+            tt.tables_num,
+            tt.tables_name,
+            tt.create_date,
+            tt.update_date
+        from
+            floors_tb ft
+            left outer join tables_tb tt on (tt.floor_num = ft.floor_num)
+        where
+            ft.admin_id = #{adminId}
+    </select>
+
     <insert id="savePosFloor" parameterType="com.project.tableMaid.entity.pos.Floors">
         insert into floors_tb
         values
         <foreach collection="floors" item="floor" separator=",">
-            (0, #{floor.floorsId}, #{floor.adminId}, #{floor.floorNum}, #{floor.floorName}, now(), now())
+            (0, #{floor.adminId}, #{floor.floorNum}, #{floor.floorName}, now(), now())
         </foreach>
     </insert>
 
-    <insert id="savePosTable" parameterType="com.project.tableMaid.entity.pos.Tables">
-        inset into tables_tb
+    <insert id="savePosTable" parameterType="com.project.tableMaid.entity.pos.Table">
+        insert into tables_tb
         values
         <foreach collection="tables" item="table" separator=",">
-            (0, #{table.tablesId}, #{table.adminId}, #{table.floorNum}, #{table.tablesNum}, #{table.tablesName}, now(), now())
+            (0, #{table.adminId}, #{table.floorNum}, #{table.tablesNum}, #{table.tablesName}, now(), now())
         </foreach>
     </insert>
 

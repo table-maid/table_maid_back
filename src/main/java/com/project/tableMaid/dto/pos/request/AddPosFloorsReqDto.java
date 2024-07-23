@@ -1,7 +1,7 @@
 package com.project.tableMaid.dto.pos.request;
 
 import com.project.tableMaid.entity.pos.Floors;
-import com.project.tableMaid.entity.pos.Tables;
+import com.project.tableMaid.entity.pos.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ public class AddPosFloorsReqDto {
     private int adminId;
     private int floorNum;
     private String floorName;
-    private List<AddPosTablesReqDto> addPosTablesReqDtos;
+    private List<Tables> Tables;
 
     public Floors toFloorEntity() {
         return Floors.builder()
@@ -26,12 +26,12 @@ public class AddPosFloorsReqDto {
                 .build();
     }
 
-    public List<Tables> toTableEntity() {
-        List<Tables> tables = new ArrayList<>();
+    public List<Table> toTableEntity() {
+        List<Table> table = new ArrayList<>();
 
-        for(AddPosTablesReqDto addPosTablesReqDto : addPosTablesReqDtos) {
-            tables.add(
-            Tables.builder()
+        for(Tables addPosTablesReqDto : Tables) {
+            table.add(
+            Table.builder()
                     .adminId(adminId)
                     .floorNum(floorNum)
                     .tablesNum(addPosTablesReqDto.getTableNum())
@@ -39,6 +39,6 @@ public class AddPosFloorsReqDto {
                     .build()
             );
         }
-        return tables;
+        return table;
     }
 }

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddPosTablesReqDto {
+public class Tables {
     private int tableNum;
     private String tableName;
 }

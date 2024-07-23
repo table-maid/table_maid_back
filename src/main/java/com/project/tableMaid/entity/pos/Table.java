@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Tables {
+public class Table {
     private int tablesId;
     private int adminId;
     private int floorNum;

@@ -1,6 +1,7 @@
 package com.project.tableMaid.service;
 
 import com.project.tableMaid.dto.pos.request.AddPosFloorsReqDto;
+import com.project.tableMaid.dto.pos.response.PosFloorsTablesListRespDto;
 import com.project.tableMaid.entity.pos.Floors;
 import com.project.tableMaid.exception.SaveException;
 import com.project.tableMaid.repository.PosMapper;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class PosService {
@@ -41,5 +43,11 @@ public class PosService {
 
     }
 
+    // 층, 테이블 조회
+    public List<PosFloorsTablesListRespDto> getPosFloorsTables(int adminId) {
+        List<Floors> floors = posMapper.findPosFloorsTables(adminId);
+
+        return floors.stream().map(Floors::toRespDto).collect(Collectors.toList());
+    }
 
 }

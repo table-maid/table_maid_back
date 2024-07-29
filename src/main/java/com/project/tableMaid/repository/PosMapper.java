@@ -12,4 +12,5 @@ public interface PosMapper {
     public int savePosFloor(List<Floors> floors);
     public int savePosTable(List<Table> tables);
     public List<Floors> findPosFloorsTables(@Param("adminId") int adminId);
+    public int deletePosFloor(@Param("adminId") int adminId, @Param("floorNum") int floorNum);
 }

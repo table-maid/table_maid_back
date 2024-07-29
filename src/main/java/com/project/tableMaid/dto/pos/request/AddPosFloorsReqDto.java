@@ -16,7 +16,7 @@ public class AddPosFloorsReqDto {
     private int adminId;
     private int floorNum;
     private String floorName;
-    private List<Tables> Tables;
+    private List<Tables> tables;
 
     public Floors toFloorEntity() {
         return Floors.builder()
@@ -27,18 +27,18 @@ public class AddPosFloorsReqDto {
     }
 
     public List<Table> toTableEntity() {
-        List<Table> table = new ArrayList<>();
+        List<Table> tableList = new ArrayList<>();
 
-        for(Tables addPosTablesReqDto : Tables) {
-            table.add(
-            Table.builder()
-                    .adminId(adminId)
-                    .floorNum(floorNum)
-                    .tablesNum(addPosTablesReqDto.getTableNum())
-                    .tablesName(addPosTablesReqDto.getTableName())
-                    .build()
+        for(Tables addPosTablesReqDto : tables) {
+            tableList.add(
+                    Table.builder()
+                            .adminId(adminId)
+                            .floorNum(floorNum)
+                            .tablesNum(addPosTablesReqDto.getTablesNum())
+                            .tablesName(addPosTablesReqDto.getTablesName())
+                            .build()
             );
         }
-        return table;
+        return tableList;
     }
 }

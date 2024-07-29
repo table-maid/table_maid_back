@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Tables {
-    private int tableNum;
-    private String tableName;
+    private int adminId;
+    private int floorNum;
+    private int tablesNum;
+    private String tablesName;
 }

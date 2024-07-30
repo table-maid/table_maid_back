@@ -80,4 +80,16 @@
             and floor_num = #{floorNum}
     </delete>
 
+    <update id="updatePosTable">
+        update
+            tables_tb
+        set
+            tables_name = #{tablesName},
+            update_date = now()
+        where
+            admin_id = #{adminId}
+            and floor_num = #{floorNum}
+            and tables_num = #{tablesNum}
+    </update>
+
 </mapper>

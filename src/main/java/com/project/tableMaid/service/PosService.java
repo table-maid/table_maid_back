@@ -2,6 +2,7 @@ package com.project.tableMaid.service;
 
 import com.project.tableMaid.dto.pos.request.AddPosFloorsReqDto;
 import com.project.tableMaid.dto.pos.request.DeletePosFloorsReqDto;
+import com.project.tableMaid.dto.pos.request.UpdateTableReqDto;
 import com.project.tableMaid.dto.pos.response.PosFloorsTablesListRespDto;
 import com.project.tableMaid.entity.pos.Floors;
 import com.project.tableMaid.entity.pos.Table;
@@ -54,6 +55,7 @@ public class PosService {
     }
 
     // 층 삭제
+    @Transactional(rollbackFor = Exception.class)
     public void deletePosFloor(DeletePosFloorsReqDto reqDto) {
         posMapper.deletePosFloor(reqDto.getAdminId(), reqDto.getFloorNum());
     }
@@ -69,5 +71,10 @@ public class PosService {
         } catch (Exception e) {
             throw new SaveException(Map.of("error", "층 삭제 중 오류 발생", "details", e.getMessage()));
         }
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void editPosTable(UpdateTableReqDto reqDto) {
+        posMapper.updatePosTable(reqDto.toEntity());
     }
 }

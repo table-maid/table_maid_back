@@ -44,4 +44,10 @@ public class PosController {
         return ResponseEntity.ok(true);
     }
 
+    @PutMapping("/floor/table")
+    public ResponseEntity<?> updatePosTable(@RequestBody UpdateTableReqDto reqDto) {
+        posService.editPosTable(reqDto);
+        return ResponseEntity.ok(true);
+    }
+
 }

@@ -27,6 +27,12 @@ public class PosController {
         return ResponseEntity.created(null).body(true);
     }
 
+    @PostMapping("/table")
+    public ResponseEntity<?> addPosTable (@RequestBody AddPosTableReqDto addPosTableReqDto) {
+        posService.insertPosTable(addPosTableReqDto);
+        return ResponseEntity.created(null).body(true);
+    }
+
     @GetMapping("/floor/table")
     public ResponseEntity<?> getPos(@RequestParam(value = "adminId") int adminId) {
         return ResponseEntity.ok(posService.getPosFloorsTables(adminId));

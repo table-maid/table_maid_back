@@ -1,6 +1,7 @@
 package com.project.tableMaid.service;
 
 import com.project.tableMaid.dto.pos.request.AddPosFloorsReqDto;
+import com.project.tableMaid.dto.pos.request.AddPosTableReqDto;
 import com.project.tableMaid.dto.pos.request.DeletePosFloorsReqDto;
 import com.project.tableMaid.dto.pos.request.UpdateTableReqDto;
 import com.project.tableMaid.dto.pos.response.PosFloorsTablesListRespDto;
@@ -23,7 +24,7 @@ public class PosService {
     @Autowired
     PosMapper posMapper;
 
-    // 층 추가
+    // 층 추가 및 다건 테이블 추가
     @Transactional(rollbackFor = Exception.class)
     public void insertFloorsTables(List<AddPosFloorsReqDto> addPosFloorsReqDtods) {
         int tableSuccessCount = 0;
@@ -38,7 +39,7 @@ public class PosService {
         }
 
         floorSuccessCount = posMapper.savePosFloor(floors);
-        tableSuccessCount = posMapper.savePosTable(tables);
+        tableSuccessCount = posMapper.savePosTables(tables);
 
         if(tableSuccessCount < floors.size()) {
             throw new SaveException(Map.of("table 갯수 저장 오류", "정상적으로 테이블 갯수가 저장되지 않았습니다."));
@@ -46,6 +47,12 @@ public class PosService {
         if(floorSuccessCount < floors.size()) {
             throw new SaveException(Map.of("floor 갯수 저장 오류", "정상적으로 층 갯수가 저장되지 않았습니다."));
         }
+    }
+
+    // 단건 테이블 추가
+    @Transactional(rollbackFor = Exception.class)
+    public void insertPosTable(AddPosTableReqDto addPosTableReqDto) {
+        posMapper.savePosTable(addPosTableReqDto.toEntity());
     }
 
     // 층, 테이블 조회

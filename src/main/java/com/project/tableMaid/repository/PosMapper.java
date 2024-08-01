@@ -10,7 +10,8 @@ import java.util.List;
 @Mapper
 public interface PosMapper {
     int savePosFloor(List<Floors> floors);
-    int savePosTable(List<Table> tables);
+    int savePosTables(List<Table> tables);
+    int savePosTable(Table table);
     List<Floors> findPosFloorsTables(@Param("adminId") int adminId);
     int deletePosFloor(@Param("adminId") int adminId, @Param("floorNum") int floorNum);
     int updatePosTable(Table table);

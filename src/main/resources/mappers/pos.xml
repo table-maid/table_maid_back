@@ -56,12 +56,18 @@
         </foreach>
     </insert>
 
-    <insert id="savePosTable" parameterType="com.project.tableMaid.entity.pos.Table">
+    <insert id="savePosTables" parameterType="com.project.tableMaid.entity.pos.Table">
         INSERT INTO tables_tb
         VALUES
         <foreach collection="tables" item="table" separator=",">
             (0, #{table.adminId}, #{table.floorNum}, #{table.tablesNum}, #{table.tablesName}, now(), now())
         </foreach>
+    </insert>
+
+    <insert id="savePosTable" parameterType="com.project.tableMaid.entity.pos.Table">
+        insert into tables_tb
+        values
+            (0, #{adminId}, #{floorNum}, #{tablesNum}, #{tablesName}, now(), now())
     </insert>
 
     <delete id="deletePosTablesByFloorNum">

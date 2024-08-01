@@ -12,6 +12,7 @@ import java.util.List;
 @Data
 public class SSESendMenusReqDto {
     private int tableNumber;
+    private int count;
     private SSEMenuReqDto menu;
     private List<SSEOptionReqDto> options;
 }

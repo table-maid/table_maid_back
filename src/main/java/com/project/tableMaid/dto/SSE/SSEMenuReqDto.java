@@ -17,5 +17,4 @@ public class SSEMenuReqDto {
     private int menuPrice;
     private int recommendMenu;
     private int menuState;
-    private String menuImgUrl;
 }

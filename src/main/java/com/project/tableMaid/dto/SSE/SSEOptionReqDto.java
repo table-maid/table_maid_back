@@ -10,12 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SSEOptionReqDto {
-    private int adminId;
-    private int menuId;
-    private int optionTitleId;
-    private String titleName;
-
-    private List<Integer> optionNameIds;
-    private List<String> optionNames;
-    private List<Integer> optionPrices;
+    private int optionId;
+    private String optionName;
+    private int optionPrice;
 }

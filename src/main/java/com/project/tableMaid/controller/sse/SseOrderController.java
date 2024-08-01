@@ -25,6 +25,13 @@ public class SseOrderController {
     @ParamsPrintAspect
     @PostMapping("/send/menus")
     public ResponseEntity<?> sendMenus (@RequestBody List<SSESendMenusReqDto> sseSendMenusReqDtoList) {
+        sseSendMenusReqDtoList.forEach(menuReqDto -> {
+            if (menuReqDto.getCount() == 0) {
+                menuReqDto.setCount(1);
+            }
+        });
+        System.out.println(sseSendMenusReqDtoList);
+
         seeOrderService.customNotify(1, sseSendMenusReqDtoList, "주문이 들어왔습니다", "SSEOrder");
         return ResponseEntity.created(null).body(true);
     }
